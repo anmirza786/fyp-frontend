@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
-
+import "react-bootstrap";
 // layouts
 
 import Admin from "layouts/Admin.js";
@@ -19,24 +19,32 @@ import HowToPlay from "views/how-to-play";
 import Competitions from "views/Competitions";
 import Winners from "views/Winners";
 import Cart from "views/Cart";
+import Competition from "views/Competition";
+
+import { Provider } from "react-redux";
+import store from "./Store";
+// import Layout from "./hocs/Layout";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      {/* add routes with layouts */}
-      <Route path="/admin" component={Admin} />
-      <Route path="/auth" component={Auth} />
-      {/* add routes without layouts */}
-      <Route path="/landing" exact component={Landing} />
-      <Route path="/profile" exact component={Profile} />
-      <Route path="/howtoplay" exact component={HowToPlay} />
-      <Route path="/competitions" exact component={Competitions} />
-      <Route path="/winners" exact component={Winners} />
-      <Route path="/cart" exact component={Cart} />
-      <Route path="/" exact component={Index} />
-      {/* add redirect for first page */}
-      <Redirect from="*" to="/" />
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        {/* add routes with layouts */}
+        <Route path="/admin" component={Admin} />
+        <Route path="/auth" component={Auth} />
+        {/* add routes without layouts */}
+        <Route path="/landing" exact component={Landing} />
+        <Route path="/profile" exact component={Profile} />
+        <Route path="/howtoplay" exact component={HowToPlay} />
+        <Route path="/competitions" exact component={Competitions} />
+        <Route path="/winners" exact component={Winners} />
+        <Route path="/cart" exact component={Cart} />
+        <Route path="/" exact component={Index} />
+        <Route path="/competition" exact component={Competition} />
+        {/* add redirect for first page */}
+        <Redirect from="*" to="/" />
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

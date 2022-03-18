@@ -73,17 +73,17 @@ export default function Navbar(props) {
                 </Link>
               </li>
 
-              <li className="flex items-center">
+              {/* <li className="flex items-center">
                 <Link to="/winners">
                   <a
                     className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                     target="_blank"
                   >
                     Shop
-                    {/* <span className="lg:hidden inline-block ml-2">Tweet</span> */}
+                    <span className="lg:hidden inline-block ml-2">Tweet</span>
                   </a>
                 </Link>
-              </li>
+              </li> */}
 
               {/* <li className="flex items-center">
                 <button

@@ -33,17 +33,6 @@ export default function Navbar(props) {
             }
             id="example-navbar-warning"
           >
-            {/* <ul className="flex flex-col lg:flex-row list-none mr-auto">
-              <li className="flex items-center">
-                <a
-                  className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-index-navbar"
-                >
-                  <i className="text-blueGray-400 far fa-file-alt text-lg leading-lg mr-2" />{" "}
-                  Docs
-                </a>
-              </li>
-            </ul> */}
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="flex items-center">
                 <Link to="/competitions">
@@ -64,7 +53,7 @@ export default function Navbar(props) {
                     target="_blank"
                   >
                     How to Play
-                    {/* <span className="lg:hidden inline-block ml-2">Share</span> */}
+                    
                   </a>
                 </Link>
               </li>
@@ -76,42 +65,15 @@ export default function Navbar(props) {
                     target="_blank"
                   >
                     Winners
-                    {/* <span className="lg:hidden inline-block ml-2">Tweet</span> */}
+                    
                   </a>
                 </Link>
               </li>
 
-              <li className="flex items-center">
-                <Link to="/winners">
-                  <a
-                    className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                    target="_blank"
-                  >
-                    Shop
-                    {/* <span className="lg:hidden inline-block ml-2">Tweet</span> */}
-                  </a>
-                </Link>
-              </li>
+              
+             
 
-              {/* <li className="flex items-center">
-                <a
-                  className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://github.com/creativetimofficial/notus-react?ref=nr-index-navbar"
-                  target="_blank"
-                >
-                  <i className="text-blueGray-400 fab fa-github text-lg leading-lg " />
-                  <span className="lg:hidden inline-block ml-2">Star</span>
-                </a>
-              </li> */}
-
-              {/* <li className="flex items-center">
-                <button
-                  className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-                  type="button"
-                >
-                  My Account
-                </button>
-              </li> */}
+              
               <li className="flex items-center">
                 <IndexDropdown />
               </li>
