@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
@@ -9,113 +9,121 @@ import "react-awesome-slider/dist/styles.css";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import { auto } from "@popperjs/core";
-import Competition from "./Competition";
+import Competition from "./SingleCompetition/Competition";
+import {
+  ViewCompetitions,
+  ViewInPreparedCompetitions,
+} from "./apis/competitions";
 
-export default function Index() {
-  return (
-    <>
-      <IndexNavbar fixed />
-      <section className="header relative pt-16 items-center flex h-screen max-h-860-px">
-        <div className="container mx-auto items-center flex flex-wrap">
-          <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
-            <div className="pt-32 sm:pt-0">
-              <h2 className="font-semibold text-4xl text-blueGray-600">
-                Gift Redeemer and Store
-              </h2>
-              <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                Our Gift Competitions are a great way for you to win dream
-                prizes. We award cars, bikes, jewels, tech and more, for the
-                price of a coffee.
-              </p>
-              <div className="mt-12">
-                <a
-                  href="#how-to-play"
-                  className="how-to-play ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
-                >
-                  How to play
-                </a>
+class Index extends Component {
+  state = {
+    competitions: [],
+    // done: "",
+  };
+  async componentDidMount() {
+    try {
+      const { data: competitions } = await ViewInPreparedCompetitions();
+      this.setState({ competitions });
+      this.state.competitions.map((comp) => console.log(comp.images[0]));
+    } catch (ex) {
+      // if (ex.response && ex.response.status === 404)
+    }
+  }
+  render() {
+    const { competitions } = this.state;
+    return (
+      <div>
+        <section className="header relative pt-16 items-center flex h-screen max-h-860-px">
+          <div className="container mx-auto items-center flex flex-wrap">
+            <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
+              <div className="pt-32 sm:pt-0">
+                <h2 className="font-semibold text-4xl text-blueGray-600">
+                  Gift Redeemer and Store
+                </h2>
+                <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                  Our Gift Competitions are a great way for you to win dream
+                  prizes. We award cars, bikes, jewels, tech and more, for the
+                  price of a coffee.
+                </p>
+                <div className="mt-12">
+                  <a
+                    href="#how-to-play"
+                    className="how-to-play ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                  >
+                    How to play
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <img
-          className="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12 max-h-860px"
-          src={require("assets/img/pattern_react.png").default}
-          alt="..."
-        />
-      </section>
+          <img
+            className="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12 max-h-860px"
+            src={require("assets/img/pattern_react.png").default}
+            alt="..."
+          />
+        </section>
 
-      <section className="mt-48 md:mt-40 pb-40 relative bg-blueGray-100">
-        <div
-          className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
-          style={{ transform: "translateZ(0)" }}
-        >
-          <svg
-            className="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-          >
-            <polygon
-              className="text-blueGray-100 fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
-          </svg>
-        </div>
-        <div className="container text-center mx-auto">
+        <section className="mt-48 md:mt-40 pb-40 relative bg-blueGray-100">
           <div
-            style={{
-              maxWidth: "80%",
-              justifyContent: "center",
-              display: "block",
-              marginLeft: auto,
-              marginRight: auto,
-            }}
+            className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
+            style={{ transform: "translateZ(0)" }}
           >
-            <h6
-              className="font-semibold mb-3"
+            <svg
+              className="absolute bottom-0 overflow-hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                className="text-blueGray-100 fill-current"
+                points="2560 0 2560 100 0 100"
+              ></polygon>
+            </svg>
+          </div>
+          <div className="container text-center mx-auto">
+            <div
               style={{
-                fontSize: "26px",
-                paddingTop: "30px",
-                paddingBottom: "60px",
+                maxWidth: "80%",
+                justifyContent: "center",
+                display: "block",
+                marginLeft: auto,
+                marginRight: auto,
               }}
             >
-              Hero Prizes !
-            </h6>
-            <Carousel
-              axis="horizontal"
-              showArrows={false}
-              showThumbs={false}
-              autoPlay
-              infiniteLoop
-              showStatus={false}
-              width={"100%"}
-            >
-              <div>
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80" />
-                <Link className="legend" to="/competition">
-                  Enter
-                </Link>
-              </div>
-              <div>
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80" />
-                <Link className="legend" to="/competition">
-                  Enter
-                </Link>
-              </div>
-              <div>
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80" />
-                <Link className="legend" to="/competition">
-                  Enter
-                </Link>
-              </div>
-            </Carousel>
-          </div>
-          {/* <AwesomeSlider
+              <h6
+                className="font-semibold mb-3"
+                style={{
+                  fontSize: "26px",
+                  paddingTop: "30px",
+                  paddingBottom: "60px",
+                }}
+              >
+                Hero Prizes !
+              </h6>
+              <Carousel
+                axis="horizontal"
+                showArrows={false}
+                showThumbs={false}
+                autoPlay
+                infiniteLoop
+                showStatus={false}
+                width={"100%"}
+              >
+                {this.state.competitions.map((comp) => (
+                  <div key={comp.id}>
+                    <img src={comp.images[0].image} alt={comp.images[0]} />
+                    <Link className="legend" to={`competitions/${comp.id}#`}>
+                      Enter
+                    </Link>
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+            {/* <AwesomeSlider
             media={[
               {
                 source:
@@ -130,7 +138,7 @@ export default function Index() {
             ]}
           /> */}
 
-          {/* <div className="w-10/12 md:w-6/12 lg:w-4/12 px-12 md:px-4 mr-auto ml-auto -mt-32">
+            {/* <div className="w-10/12 md:w-6/12 lg:w-4/12 px-12 md:px-4 mr-auto ml-auto -mt-32">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-lightBlue-500">
                 <img
                   alt="..."
@@ -162,7 +170,7 @@ export default function Index() {
               </div>
             </div> */}
 
-          {/* <div className="w-full md:w-6/12 px-4">
+            {/* <div className="w-full md:w-6/12 px-4">
               <div className="flex flex-wrap">
                 <div className="w-full md:w-6/12 px-4">
                   <div className="relative flex flex-col mt-4">
@@ -224,9 +232,9 @@ export default function Index() {
                 </div>
               </div>
             </div> */}
-        </div>
+          </div>
 
-        {/* <div className="flex flex-wrap items-center">
+          {/* <div className="flex flex-wrap items-center">
           <div className="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
             <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
               <i className="fas fa-sitemap text-xl"></i>
@@ -311,71 +319,71 @@ export default function Index() {
           </div>
         </div> */}
 
-        <div className="w-full px-4 mr-auto ml-auto">
-          <div className="justify-evenly flex flex-wrap relative">
-            <Link to="/competition">
-              <div className="bg-red-500 shadow-lg rounded-lg text-center p-8 mt-8">
-                <img
-                  alt="..."
-                  className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
-                  src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/svelte.jpg"
-                />
-              </div>
-            </Link>
+          <div className="w-full px-4 mr-auto ml-auto">
+            <div className="justify-evenly flex flex-wrap relative">
+              <Link to="/competition">
+                <div className="bg-red-500 shadow-lg rounded-lg text-center p-8 mt-8">
+                  <img
+                    alt="..."
+                    className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
+                    src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/svelte.jpg"
+                  />
+                </div>
+              </Link>
 
-            <Link to="/competition">
-              <div className="bg-lightBlue-500 shadow-lg rounded-lg text-center p-8 mt-8">
-                <img
-                  alt="..."
-                  className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
-                  src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/react.jpg"
-                />
-              </div>
-            </Link>
+              <Link to="/competition">
+                <div className="bg-lightBlue-500 shadow-lg rounded-lg text-center p-8 mt-8">
+                  <img
+                    alt="..."
+                    className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
+                    src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/react.jpg"
+                  />
+                </div>
+              </Link>
 
-            <Link to="/competition">
-              <div className="bg-blueGray-700 shadow-lg rounded-lg text-center p-8 mt-8">
-                <img
-                  alt="..."
-                  className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
-                  src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/nextjs.jpg"
-                />
-              </div>
-            </Link>
+              <Link to="/competition">
+                <div className="bg-blueGray-700 shadow-lg rounded-lg text-center p-8 mt-8">
+                  <img
+                    alt="..."
+                    className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
+                    src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/nextjs.jpg"
+                  />
+                </div>
+              </Link>
 
-            <Link to="/competition">
-              <div className="bg-yellow-500 shadow-lg rounded-lg text-center p-8 mt-8">
-                <img
-                  alt="..."
-                  className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
-                  src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/js.png"
-                />
-              </div>
-            </Link>
+              <Link to="/competition">
+                <div className="bg-yellow-500 shadow-lg rounded-lg text-center p-8 mt-8">
+                  <img
+                    alt="..."
+                    className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
+                    src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/js.png"
+                  />
+                </div>
+              </Link>
 
-            <Link to="/competition">
-              <div className="bg-red-700 shadow-lg rounded-lg text-center p-8 mt-8">
-                <img
-                  alt="..."
-                  className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
-                  src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/angular.jpg"
-                />
-              </div>
-            </Link>
+              <Link to="/competition">
+                <div className="bg-red-700 shadow-lg rounded-lg text-center p-8 mt-8">
+                  <img
+                    alt="..."
+                    className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
+                    src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/angular.jpg"
+                  />
+                </div>
+              </Link>
 
-            <Link to="/competition">
-              <div className="bg-emerald-500 shadow-lg rounded-lg text-center p-8 mt-8">
-                <img
-                  alt="..."
-                  className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
-                  src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/vue.jpg"
-                />
-              </div>
-            </Link>
+              <Link to="/competition">
+                <div className="bg-emerald-500 shadow-lg rounded-lg text-center p-8 mt-8">
+                  <img
+                    alt="..."
+                    className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
+                    src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/vue.jpg"
+                  />
+                </div>
+              </Link>
+            </div>
           </div>
-        </div>
 
-        {/* <div className="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
+          {/* <div className="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
               <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                 <i className="fas fa-drafting-compass text-xl"></i>
               </div>
@@ -427,7 +435,7 @@ export default function Index() {
               </a>
             </div> */}
 
-        {/* <div className="container mx-auto px-4 pb-32 pt-48">
+          {/* <div className="container mx-auto px-4 pb-32 pt-48">
           <div className="items-center flex flex-wrap">
             <div className="w-full md:w-5/12 ml-auto px-12 md:px-4">
               <div className="md:pr-12">
@@ -504,77 +512,77 @@ export default function Index() {
           </div>
         </div> */}
 
-        <div className="justify-center text-center flex flex-wrap mt-24">
-          <div className="w-full md:w-6/12 px-12 md:px-4">
-            <h2 className="font-semibold text-4xl" id="how-to-play">
-              How it Works
-            </h2>
+          <div className="justify-center text-center flex flex-wrap mt-24">
+            <div className="w-full md:w-6/12 px-12 md:px-4">
+              <h2 className="font-semibold text-4xl" id="how-to-play">
+                How it Works
+              </h2>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="block relative z-1 bg-blueGray-600">
-        <div className="container mx-auto">
-          <div className="justify-center flex flex-wrap">
-            <div className="w-full lg:w-12/12 px-4  -mt-24">
-              <div className="flex flex-wrap">
-                <div className="w-full lg:w-4/12 px-4">
-                  <h5 className="text-xl font-semibold pb-4 text-center">
-                    Step 01
-                  </h5>
-                  <div className="hover:-mt-4 relative flex flex-col min-w-0 bg-blueGray-700 shadow-lg rounded-lg text-center p-8 mt-8 w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
-                    {/* <img
+        <section className="block relative z-1 bg-blueGray-600">
+          <div className="container mx-auto">
+            <div className="justify-center flex flex-wrap">
+              <div className="w-full lg:w-12/12 px-4  -mt-24">
+                <div className="flex flex-wrap">
+                  <div className="w-full lg:w-4/12 px-4">
+                    <h5 className="text-xl font-semibold pb-4 text-center">
+                      Step 01
+                    </h5>
+                    <div className="hover:-mt-4 relative flex flex-col min-w-0 bg-blueGray-700 shadow-lg rounded-lg text-center p-8 mt-8 w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
+                      {/* <img
                       alt="..."
                       className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
                       src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/nextjs.jpg"
                     /> */}
-                    <p className="text-lg text-white mt-4 font-semibold">
-                      Pick an amazing prize and enter the competition.
-                    </p>
+                      <p className="text-lg text-white mt-4 font-semibold">
+                        Pick an amazing prize and enter the competition.
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="w-full lg:w-4/12 px-4">
-                  <h5 className="text-xl font-semibold pb-4 text-center">
-                    Step 02
-                  </h5>
-                  <div className="hover:-mt-4 relative flex flex-col min-w-0 bg-blueGray-700 shadow-lg rounded-lg text-center p-8 mt-8 w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
-                    {/* <img
+                  <div className="w-full lg:w-4/12 px-4">
+                    <h5 className="text-xl font-semibold pb-4 text-center">
+                      Step 02
+                    </h5>
+                    <div className="hover:-mt-4 relative flex flex-col min-w-0 bg-blueGray-700 shadow-lg rounded-lg text-center p-8 mt-8 w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
+                      {/* <img
                       alt="..."
                       className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
                       src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/nextjs.jpg"
                     /> */}
-                    <p className="text-lg text-white mt-4 font-semibold">
-                      Select your tickets, or let the Lucky Dip selector choose
-                      a letter and number for you.
-                    </p>
+                      <p className="text-lg text-white mt-4 font-semibold">
+                        Select your tickets, or let the Lucky Dip selector
+                        choose a letter and number for you.
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="w-full lg:w-4/12 px-4">
-                  <h5 className="text-xl font-semibold pb-4 text-center">
-                    Step 03
-                  </h5>
-                  <div className="hover:-mt-4 relative flex flex-col min-w-0 bg-blueGray-700 shadow-lg rounded-lg text-center p-8 mt-8 w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
-                    {/* <img
+                  <div className="w-full lg:w-4/12 px-4">
+                    <h5 className="text-xl font-semibold pb-4 text-center">
+                      Step 03
+                    </h5>
+                    <div className="hover:-mt-4 relative flex flex-col min-w-0 bg-blueGray-700 shadow-lg rounded-lg text-center p-8 mt-8 w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
+                      {/* <img
                       alt="..."
                       className="shadow-md rounded-full max-w-full w-16 mx-auto p-2 bg-white"
                       src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/nextjs.jpg"
                     /> */}
-                    <p className="text-lg text-white mt-4 font-semibold">
-                      Finalize payment. Wait for the Live Draw and be lucky...
-                      Join our winners podium ! Daily winners !
-                    </p>
+                      <p className="text-lg text-white mt-4 font-semibold">
+                        Finalize payment. Wait for the Live Draw and be lucky...
+                        Join our winners podium ! Daily winners !
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-20 bg-blueGray-600 overflow-hidden">
-        {/* <div className="container mx-auto pb-64">
+        <section className="py-20 bg-blueGray-600 overflow-hidden">
+          {/* <div className="container mx-auto pb-64">
           <div className="flex flex-wrap justify-center">
             <div className="w-full md:w-5/12 px-12 md:px-4 ml-auto mr-auto md:mt-64">
               <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
@@ -609,35 +617,35 @@ export default function Index() {
               </a>
             </div> */}
 
-        {/* <div className="w-full md:w-4/12 px-4 mr-auto ml-auto mt-32 relative">
+          {/* <div className="w-full md:w-4/12 px-4 mr-auto ml-auto mt-32 relative">
               <i className="fab fa-github text-blueGray-700 absolute -top-150-px -right-100 left-auto opacity-80 text-55"></i>
             </div>
           </div> */}
-        {/* </div> */}
-      </section>
+          {/* </div> */}
+        </section>
 
-      <section className="pb-16 bg-blueGray-200 relative pt-32">
-        <div
-          className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
-          style={{ transform: "translateZ(0)" }}
-        >
-          <svg
-            className="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
+        <section className="pb-16 bg-blueGray-200 relative pt-32">
+          <div
+            className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
+            style={{ transform: "translateZ(0)" }}
           >
-            <polygon
-              className="text-blueGray-200 fill-current"
-              points="2560 0 2560 100 0 100"
-            ></polygon>
-          </svg>
-        </div>
+            <svg
+              className="absolute bottom-0 overflow-hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                className="text-blueGray-200 fill-current"
+                points="2560 0 2560 100 0 100"
+              ></polygon>
+            </svg>
+          </div>
 
-        {/* <div className="container mx-auto">
+          {/* <div className="container mx-auto">
           <div className="flex flex-wrap justify-center bg-white shadow-xl rounded-lg -mt-64 py-16 px-12 relative z-10">
             <div className="w-full text-center lg:w-8/12">
               <p className="text-4xl text-center">
@@ -674,8 +682,11 @@ export default function Index() {
             </div>
           </div>
         </div> */}
-      </section>
-      <Footer />
-    </>
-  );
+        </section>
+        <Footer />
+      </div>
+    );
+  }
 }
+
+export default Index;

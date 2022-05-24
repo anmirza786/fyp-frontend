@@ -32,7 +32,7 @@ const IndexDropdown = () => {
           type="button"
         >
           <i class="far fa-user mr-2"></i>
-          My Account
+          User Account
         </button>
       </a>
       <div

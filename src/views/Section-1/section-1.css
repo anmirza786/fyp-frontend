@@ -1,0 +1,214 @@
+.c-section-1 {
+  width: 1070px;
+  margin: auto;
+  margin-top: 50px;
+}
+.undisableClass {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.c-section-1 > h1 {
+  font-size: 5rem;
+  /* color: black; */
+}
+.c-section-1 .items-link {
+  text-decoration: none;
+}
+.c-section-1 .items-container {
+  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.c-section-1 .items {
+  width: 22.8%;
+  height: 260px;
+  margin-top: 30px;
+  margin-right: 2.2%;
+}
+
+.c-section-1 .items .items-link > div {
+  position: relative;
+  overflow: hidden;
+}
+.items .items-link > div > div:hover {
+  transform: scale(1.07);
+}
+.c-section-1 .items .items-link > div > div:hover .sold-out {
+  width: 90%;
+  transform: rotate(0deg);
+}
+.c-section-1 .items .items-link > div > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  transition: all 0.5s;
+  align-items: center;
+}
+.c-section-1 .sold-out {
+  width: 95%;
+  height: 30px;
+  background-color: black;
+  transform: rotate(-19deg);
+  text-align: center;
+  margin: auto;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: black;
+}
+.progress {
+  border: 2px solid black;
+  width: 100%;
+  height: 3vh;
+  border-radius: 50px;
+  position: relative;
+  background-color: transparent;
+}
+.progress-bar {
+  background-color: black;
+}
+/* .c-section-1 .items-colorfull {
+  width: 90%;
+  height: 20px;
+  border-radius: 10px;
+  border: 2px solid black;
+  margin-bottom: 15px;
+  position: relative;
+}
+.c-section-1 .progress-bar {
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  border-radius: 10px;
+} */
+
+.c-section-1 .items .items-link > div {
+  width: 100%;
+  height: 70%;
+}
+.c-section-1 .items h3 {
+  font-size: 1.6rem;
+  color: black;
+  margin-top: 10px;
+  padding-left: 10px;
+}
+.c-section-1 .items h1 {
+  padding-left: 10px;
+  font-size: 2.7rem;
+  color: black;
+}
+.discount-bar {
+  margin-right: 10px;
+  text-decoration: line-through;
+}
+
+@media (max-width: 345px) {
+  .c-section-1 {
+    width: 270px;
+  }
+  .c-section-1 > h1 {
+    text-align: center;
+    font-size: 3rem;
+  }
+  .c-section-1 .items-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .c-section-1 .items {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 346px) and (max-width: 480px) {
+  .c-section-1 {
+    width: 300px;
+  }
+  .c-section-1 > h1 {
+    text-align: center;
+    font-size: 3rem;
+  }
+  .c-section-1 .items-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .c-section-1 .items {
+    width: 90%;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 600px) {
+  .c-section-1 {
+    width: 500px;
+  }
+  .c-section-1 > h1 {
+    text-align: center;
+    font-size: 3rem;
+  }
+  .c-section-1 .items-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .c-section-1 .items {
+    width: 45%;
+    height: 230px;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 786px) {
+  .c-section-1 {
+    width: 650px;
+  }
+  .c-section-1 > h1 {
+    text-align: start;
+    font-size: 3rem;
+  }
+  .c-section-1 .items-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .c-section-1 .items {
+    width: 41%;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1000px) {
+  .main-section .c-section-1 {
+    width: 700px;
+  }
+  .main-section .items-container {
+    justify-content: space-between;
+  }
+  .c-section-1 .items {
+    width: 30%;
+    height: 230px;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 1001px) and (max-width: 1100px) {
+  .main-section .c-section-1 {
+    width: 900px;
+  }
+  .c-section-1 .items-container {
+    justify-content: space-between;
+  }
+  .c-section-1 .items {
+    width: 30%;
+    height: 265px;
+    margin-right: 0;
+  }
+}

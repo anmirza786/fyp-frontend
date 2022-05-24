@@ -33,7 +33,7 @@ class Auth extends Component {
                 component={ResetPassword}
               />
               <Route
-                path="/auth/password/rest/confirm/:uid/:token"
+                path="/auth/password/reset/confirm/:uid/:token"
                 exact
                 component={ResetPasswordConfirm}
               />

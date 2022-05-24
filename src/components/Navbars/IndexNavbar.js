@@ -1,12 +1,36 @@
 /*eslint-disable*/
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 // components
 
 import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
+import { connect } from "react-redux";
 
-export default function Navbar(props) {
+import { logout } from "../../actions/auth";
+import { NavLink } from "react-router-dom";
+
+const Navbar = ({ logout, isAuthenticated }) => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+
+  const guestLinks = () => (
+    <Fragment>
+      <li className="flex items-center">
+        <IndexDropdown />
+      </li>
+    </Fragment>
+  );
+  const authLinks = () => (
+    <Link to="/profile" className="flex items-center">
+      <button
+        className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-2 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mb-0 ease-linear transition-all duration-150"
+        type="button"
+      >
+        <i class="far fa-user mr-2"></i>
+        My Account
+      </button>
+    </Link>
+  );
+  // const logoutHandler = () => {};
   return (
     <>
       <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white shadow">
@@ -53,7 +77,6 @@ export default function Navbar(props) {
                     target="_blank"
                   >
                     How to Play
-                    
                   </a>
                 </Link>
               </li>
@@ -65,19 +88,10 @@ export default function Navbar(props) {
                     target="_blank"
                   >
                     Winners
-                    
                   </a>
                 </Link>
               </li>
-
-              
-             
-
-              
-              <li className="flex items-center">
-                <IndexDropdown />
-              </li>
-
+              {isAuthenticated ? authLinks() : guestLinks()}
               <li className="flex items-center">
                 <Link to="/cart">
                   <a
@@ -95,4 +109,9 @@ export default function Navbar(props) {
       </nav>
     </>
   );
-}
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { logout })(Navbar);

@@ -1,15 +1,20 @@
-import React, { Component } from 'react';
-import { Route, Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import IndexNavbar from "components/Navbars/IndexNavbar";
+// import { useEffect } from "react";
 import { connect } from "react-redux";
+import { checkAuthenticated, load_user } from "../actions/auth";
 
-const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
-    <Route
-        {...rest}
-        render = {props => isAuthenticated ? <Component {...props} /> : <Redirect to="/signin" />  }
-    />
-);
+const Layout = (props) => {
+  useEffect(() => {
+    props.checkAuthenticated();
+    props.load_user();
+  });
+  return (
+    <div>
+      <IndexNavbar />
+      {props.children}
+    </div>
+  );
+};
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-})
-export default connect(mapStateToProps, {})(PrivateRoute);
+export default connect(null, { checkAuthenticated, load_user })(Layout);

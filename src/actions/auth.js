@@ -53,7 +53,7 @@ export const checkAuthenticated = () => async (dispatch) => {
         dispatch({
           type: AUTHENTICATED_SUCCESS,
         });
-        dispatch(getCartData());
+        // dispatch(getCartData());
       } else {
         dispatch({
           type: AUTHENTICATED_FAIL,
@@ -71,83 +71,6 @@ export const checkAuthenticated = () => async (dispatch) => {
   }
 };
 
-export const googleAuthenticate = (state, code) => async (dispatch) => {
-  if (code && !localStorage.getItem("access")) {
-    const config = {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    };
-    const details = {
-      // 'state': state,
-      code: code,
-    };
-    const formBody = Object.keys(details)
-      .map(
-        (key) =>
-          encodeURIComponent(key) + "=" + encodeURIComponent(details[key])
-      )
-      .join("&");
-    try {
-      const res = await axios.post(
-        `${REQUEST_URL}/auth/o/google-oauth2/?${formBody}`,
-        config
-      );
-      console.log(res, "googleeeeeeeeeeee");
-      dispatch({
-        type: GOOGLE_AUTH_SUCCESS,
-        payload: res.data,
-      });
-      dispatch(load_user());
-    } catch (error) {
-      console.log(error.response);
-      dispatch({
-        type: GOOGLE_AUTH_FAIL,
-      });
-      // console.log(error.response,"google auth error")
-    }
-  }
-};
-
-export const facebookAuthenticate = (state, code) => async (dispatch) => {
-  if (state && code && !localStorage.getItem("access")) {
-    console.log("State: " + state);
-    console.log("Code: " + code);
-    const config = {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    };
-    const details = {
-      state: state,
-      code: code,
-    };
-    const formBody = Object.keys(details)
-      .map(
-        (key) =>
-          encodeURIComponent(key) + "=" + encodeURIComponent(details[key])
-      )
-      .join("&");
-    try {
-      const res = await axios.post(
-        `${REQUEST_URL}/auth/o/facebook/?${formBody}`,
-        config
-      );
-      console.log(res, "google auth response");
-      dispatch({
-        type: FACEBOOK_AUTH_SUCCESS,
-        payload: res.data,
-      });
-      dispatch(load_user());
-    } catch (error) {
-      console.log(error.response);
-      dispatch({
-        type: FACEBOOK_AUTH_FAIL,
-      });
-      console.log(error.response, "google auth error");
-    }
-  }
-};
 export const login = (email, password) => async (dispatch) => {
   dispatch({
     type: AUTHENTICATED_START,
@@ -179,8 +102,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const signup =
-  (first_name, last_name, email, password, re_password, code) =>
-  async (dispatch) => {
+  (email, name, password, re_password) => async (dispatch) => {
     dispatch({
       type: AUTHENTICATED_START,
     });
@@ -190,12 +112,10 @@ export const signup =
       },
     };
     const body = JSON.stringify({
-      first_name,
-      last_name,
       email,
+      name,
       password,
       re_password,
-      code,
     });
     // const data = new FormData();
     // data.append("name", name);
@@ -204,9 +124,9 @@ export const signup =
     // data.append("re_password", re_password);
     // data.append("code", code);
     await axios
-      .post(REQUEST_URL + `/api/auth/users/`, body, config)
+      .post(REQUEST_URL + `/auth/users/`, body, config)
       .then((res) => {
-        dispatch(login(email, password));
+        // dispatch(login(email, password));
         dispatch({
           type: SIGNUP_SUCCESS,
           payload: res.data,
@@ -220,7 +140,33 @@ export const signup =
         });
       });
   };
-
+export const varify = (uid, token) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({
+    uid,
+    token,
+  });
+  await axios
+    .post(REQUEST_URL + `/auth/users/activation/`, body, config)
+    .then((res) => {
+      // dispatch(login(email, password));
+      dispatch({
+        type: ACCOUNT_ACTIVATION_CONFIRM_SUCCESS,
+        payload: res.data,
+      });
+      // dispatch(load_user());
+    })
+    .catch((error) => {
+      dispatch({
+        error: error.response,
+        type: ACCOUNT_ACTIVATION_CONFIRM_FAIL,
+      });
+    });
+};
 export const update_profile =
   (phone, address, town, postcode) => async (dispatch) => {
     console.log(phone, address, town, postcode);
@@ -269,12 +215,12 @@ export const load_user = () => async (dispatch) => {
       },
     };
     try {
-      const res = await axios.get(REQUEST_URL + `/auth/users/`, config);
+      const res = await axios.get(REQUEST_URL + `/auth/users/me`, config);
       dispatch({
         type: USER_LOADED_SUCCESS,
         payload: res.data,
       });
-      dispatch(getCartData());
+      // dispatch(getCartData());
     } catch (err) {
       console.log(err, "this is error while loading user");
       dispatch({
@@ -294,6 +240,7 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
+  console.log(localStorage.getItem("access"));
 };
 
 // export const checkAuthTimeout = expirationTime => {
@@ -303,55 +250,55 @@ export const logout = () => (dispatch) => {
 //         }, expirationTime * 1000)
 //     }
 // }
-export const getCartData = () => async (dispatch) => {
-  dispatch({
-    type: GET_CART_DATA_START,
-  });
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `JWT ${localStorage.getItem("access")}`,
-      Accept: "application/json",
-    },
-  };
-  await axios
-    .get(REQUEST_URL + `/api/carts/active`, config)
-    .then((res) => {
-      if (res.data.items.length > 0) {
-        dispatch({
-          type: GET_CART_DATA_SUCCESS,
-          payload: res.data.items,
-        });
-      } else {
-        dispatch({
-          type: GET_CART_DATA_FAIL,
-        });
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-      dispatch({
-        type: GET_CART_DATA_FAIL,
-      });
-    });
-};
+// export const getCartData = () => async (dispatch) => {
+//   dispatch({
+//     type: GET_CART_DATA_START,
+//   });
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `JWT ${localStorage.getItem("access")}`,
+//       Accept: "application/json",
+//     },
+//   };
+//   await axios
+//     .get(REQUEST_URL + `/api/carts/active`, config)
+//     .then((res) => {
+//       if (res.data.items.length > 0) {
+//         dispatch({
+//           type: GET_CART_DATA_SUCCESS,
+//           payload: res.data.items,
+//         });
+//       } else {
+//         dispatch({
+//           type: GET_CART_DATA_FAIL,
+//         });
+//       }
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//       dispatch({
+//         type: GET_CART_DATA_FAIL,
+//       });
+//     });
+// };
 
-export const getDiscounts = () => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `JWT ${localStorage.getItem("access")}`,
-      Accept: "application/json",
-    },
-  };
-  await axios.get(REQUEST_URL + `/api/carts/discounts`, config).then((res) => {
-    console.log(res);
-    dispatch({
-      type: GET_DISCOUNTS,
-      payload: res.data,
-    });
-  });
-};
+// export const getDiscounts = () => async (dispatch) => {
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `JWT ${localStorage.getItem("access")}`,
+//       Accept: "application/json",
+//     },
+//   };
+//   await axios.get(REQUEST_URL + `/api/carts/discounts`, config).then((res) => {
+//     console.log(res);
+//     dispatch({
+//       type: GET_DISCOUNTS,
+//       payload: res.data,
+//     });
+//   });
+// };
 
 export const reset_password = (email) => async (dispatch) => {
   const config = {
@@ -362,7 +309,7 @@ export const reset_password = (email) => async (dispatch) => {
   const body = JSON.stringify({ email });
   try {
     const res = await axios.post(
-      REQUEST_URL + `/api/auth/users/reset_password/`,
+      REQUEST_URL + `/auth/users/reset_password/`,
       body,
       config
     );

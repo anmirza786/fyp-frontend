@@ -2,11 +2,13 @@ import React from "react";
 
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
+import { logout } from "../actions/auth";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-export default function Profile() {
-  return (
+const Profile = ({ logout, isAuthenticated, user }) => {
+  const returnProfile = () => (
     <>
-      <Navbar transparent />
       <main className="profile-page">
         <section className="relative block h-500-px">
           <div
@@ -60,8 +62,10 @@ export default function Profile() {
                       <button
                         className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
+                        onClick={logout}
                       >
-                        Connect
+                        <i className="fas fa-sign-out-alt mr-2"></i>
+                        Logout
                       </button>
                     </div>
                   </div>
@@ -96,19 +100,10 @@ export default function Profile() {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Jenna Stones
+                    {user.name}
                   </h3>
-                  <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-                    Los Angeles, California
-                  </div>
-                  <div className="mb-2 text-blueGray-600 mt-10">
-                    <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                    Solution Manager - Creative Tim Officer
-                  </div>
-                  <div className="mb-2 text-blueGray-600">
-                    <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                    University of Computer Science
+                  <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold">
+                    {user.email}
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
@@ -139,4 +134,11 @@ export default function Profile() {
       <Footer />
     </>
   );
-}
+  const returnLogout = () => <Redirect from="*" to="/" />;
+  return <>{isAuthenticated ? returnProfile() : returnLogout()}</>;
+};
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
+});
+export default connect(mapStateToProps, { logout })(Profile);
