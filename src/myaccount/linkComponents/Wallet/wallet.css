@@ -1,0 +1,64 @@
+.wallet > div:nth-child(1) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.wallet > div:nth-child(1) > h1 {
+  color: rgb(210, 210, 210);
+  font-size: 2.5rem;
+}
+.wallet > div:nth-child(1) figure {
+  width: 100px;
+  height: 100px;
+  background-color: #333333;
+  border-radius: 50%;
+}
+.wallet > div:nth-child(1) figure img {
+  border-radius: 50%;
+}
+.wallet > div:nth-child(2) {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.wallet > div:nth-child(2) > .balance-box {
+  width: 250px;
+  height: 120px;
+  background-color: #ffd452;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+.wallet > div:nth-child(2) > .balance-box h1 {
+  font-size: 2.5rem;
+}
+
+.wallet > div:nth-child(2) > h1 {
+  font-size: 2.5rem;
+  margin-top: 40px;
+  color: rgb(210, 210, 210);
+}
+.wallet > h1 {
+  color: rgb(210, 210, 210);
+  font-size: 2.5rem;
+  margin-top: 30px;
+}
+
+@media (max-width: 500px) {
+  .wallet > div:nth-child(1) > h1 {
+    margin-top: 10px;
+  }
+  .wallet > div:nth-child(1) figure {
+    display: none;
+  }
+  .wallet > div:nth-child(2) > div {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .wallet > h1 {
+    text-align: center;
+  }
+}

@@ -4,7 +4,7 @@ import Form from "./form";
 import { signup } from "../../actions/auth";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-const Register = ({ signup, isAuthenticated }) => {
+const Register = ({ signup, isAuthenticated, error }) => {
   // state = {
   //   data: {
   //     email: "",
@@ -33,8 +33,16 @@ const Register = ({ signup, isAuthenticated }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (password === re_password) {
-      signup(email, name, password, re_password);
-      setAccountCreated(true);
+      try{
+        signup(email, name, password, re_password);
+        setAccountCreated(true);
+      }
+      catch(err){
+
+      } 
+    }
+    else{
+        
     }
   };
   if (isAuthenticated) {
@@ -133,6 +141,7 @@ const Register = ({ signup, isAuthenticated }) => {
                       required
                     />
                   </div>
+                  
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
@@ -140,6 +149,28 @@ const Register = ({ signup, isAuthenticated }) => {
                     >
                       Register
                     </button>
+                  </div>
+                  <div className="text-center mt-6">
+                    {error != null || error != undefined
+                      ? Object.keys(error.data).map((key, index) => (
+                          <ul key={index} style={{ paddingLeft: "10px" }}>
+                            <li
+                              style={{
+                                color: "red",
+                                fontSize: "12px",
+                                listStyleType: "square",
+                              }}
+                            >
+                              <span>
+                                <strong>{key.toUpperCase()}</strong> :{" "}
+                              </span>
+                              <span>
+                                <strong>{error.data[key]}</strong>
+                              </span>
+                            </li>
+                          </ul>
+                        ))
+                      : null}
                   </div>
                 </form>
               </div>
@@ -164,5 +195,6 @@ const Register = ({ signup, isAuthenticated }) => {
 };
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  error: state.auth.error,
 });
 export default connect(mapStateToProps, { signup })(Register);

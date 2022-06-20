@@ -1,0 +1,65 @@
+.mytickets>div:nth-child(1)
+{
+    display: flex;
+    justify-content: center;
+    padding: 0px 0 6px 0 !important;
+}
+.mytickets>div:nth-child(1) button
+{
+    padding: 10px 50px 10px 50px;
+    margin-left: 10px;
+    font-size: 1.5rem;
+    background-color: #2A2A2A;
+    color: white;
+    cursor: pointer;
+}
+.mytickets>div:nth-child(1) button:hover
+{
+    background-color: var(--primary);
+}
+.ticketsdetail
+{
+    margin-top: 10px;
+}
+
+.tickets-head
+{
+    min-height: 9vh;
+    display: flex;
+}
+.tickets-head>div
+{
+    border: 1px solid rgb(90,90,90);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.tickets-head>div>h1
+{
+    color: var(--primary);
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+.ticketActiveNav button
+{
+    color:  black !important;
+    background-color: var(--primary) !important;
+} 
+@media (max-width:800px)
+{
+    .tickets-head>div>h1
+{
+    color: var(--primary);
+    font-size: 1rem;
+}
+.tickets-head>div>h1
+{
+    font-size: 1rem ;
+}
+.mytickets>div:nth-child(1) button
+{
+    padding: 10px 45px 10px 45px;
+}
+ 
+}

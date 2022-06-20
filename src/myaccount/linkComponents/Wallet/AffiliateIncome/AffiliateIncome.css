@@ -1,0 +1,46 @@
+.withdraw-btn {
+  height: 35px;
+  margin: 0px 0px 10px 0px;
+  cursor: pointer;
+  padding: 20px;
+  background-color: #00ffea;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  font-size: 2rem;
+}
+.withdraw-btn.disabled {
+  background-color: #20a095;
+  cursor: not-allowed;
+}
+.warning {
+  color: #ff7000;
+  font-size: 1.75rem;
+}
+.widthdraw-btns {
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.paypal-connected {
+  font-size: 1.75rem;
+  color: white;
+  margin: 10px 0;
+  text-align: center;
+}
+.paypal-connected-email {
+  font-size: 1.4rem;
+  text-align: center;
+  color: #ffffff;
+  margin: 10px 0;
+}
+.widthdraw-errors {
+  color: #d2461b;
+  padding-top: 20px;
+  font-size: 1.5rem;
+}

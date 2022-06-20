@@ -1,0 +1,9 @@
+.my-account-components {
+  width: 70%;
+  padding-bottom: 60px;
+}
+@media (max-width: 900px) {
+  .my-account-components {
+    width: 100%;
+  }
+}

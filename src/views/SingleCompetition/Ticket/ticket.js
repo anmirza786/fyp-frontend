@@ -1,20 +1,19 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
 import "./tickets.css";
-// import Footer from "../../../Landing-page/Footer/footer.jsx";
-// import Navbar from "../../../Landing-page/Navbar/navbar.jsx";
 import Swiper from "swiper";
 import "./section-2.css";
 // import Ecard from "../ecard/section-2";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-// import { getCartData } from "../../../../../actions/auth";
+import { getCartData } from "../../../actions/auth";
 import { NavLink, Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 // import Loader from "react-loader-spinner";
-import { ProgressBar } from "react-bootstrap";
 import Footer from "../../../components/Footers/Footer";
+import { ProgressBar } from "react-bootstrap";
+
 // REQUEST VARIABLE
 import { REQUEST_URL } from "../../../actions/Constant";
 // import EcardVideo from "../../../../../assets/eCardVideo.mp4";
@@ -134,7 +133,7 @@ class Ticket extends React.Component {
     const comp_id = this.props.match.params.id;
     const price = this.state.competition.discount_active
       ? this.state.competition.discount_price
-      : this.state.competition.first_day_price;
+      : this.state.competition.price;
     const image = this.state.competition.images[0].image;
     const title = this.state.competition.title;
     const body = JSON.stringify({
@@ -144,19 +143,24 @@ class Ticket extends React.Component {
       image,
       title,
     });
-    // await axios
-    //   .post(REQUEST_URL + `/api/competitions/lucky`, body, config)
-    //   .then((res) => {
-    //     if (res.data.success) {
-    //       this.componentDidMount();
-    //     } else if (res.data.notAvailable) {
-    //       console.log(res.data.notAvailable);
-    //       this.setState({ luckyDipMsg: res.data.notAvailable });
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    await axios
+      .post(REQUEST_URL + `/api/competitions/lucky`, body, config)
+      .then((res) => {
+        if (res.data.success) {
+          this.componentDidMount();
+        } else if (res.data.notAvailable) {
+          console.log(res.data.notAvailable);
+          this.setState({ luckyDipMsg: res.data.notAvailable });
+        } else if (res.data.timeout) {
+          setTimeout(function () {
+            alert(res.data.timeout);
+          }, 500);
+          this.setState({ luckyDipCount: 0 });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   //   timeincrement = async () => {
@@ -182,72 +186,82 @@ class Ticket extends React.Component {
   //       });
   //   };
 
-  // getCartData = async () => {
-  //   const config = {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `JWT ${localStorage.getItem("access")}`,
-  //       Accept: "application/json",
-  //     },
-  //   };
-  //   await axios
-  //     .get(REQUEST_URL + `/api/carts/active`, config)
-  //     .then((res) => {
-  //       if (res.data.items.length >= 1) {
-  //         const arr = []
-  //         for (let i = 0; i < res.data.items.length; i++){
-  //           if (res.data.items[i].is_ticket  && this.state.competition.title === res.data.items[i].title) {
-  //             arr.push(res.data.items[i].ticket_name)
-  //           }
-  //         }
-  //         this.setState({ cartTickets: arr })
-  //       }
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // };
+  getCartData = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+        Accept: "application/json",
+      },
+    };
+    await axios
+      .get(REQUEST_URL + `/api/carts/active`, config)
+      .then((res) => {
+        if (res.data.items.length >= 1) {
+          const arr = [];
+          for (let i = 0; i < res.data.items.length; i++) {
+            if (
+              res.data.items[i].is_ticket &&
+              this.state.competition.title === res.data.items[i].title
+            ) {
+              arr.push(res.data.items[i].ticket_name);
+            }
+          }
+          this.setState({ cartTickets: arr });
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
-  // addToCart = async (ticketId, ticket_name) => {
-  //   const config = {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `JWT ${localStorage.getItem("access")}`,
-  //       Accept: "application/json",
-  //     },
-  //   };
-  //   const user_id = this.props.user.profile.user;
-  //   const comp_id = this.props.match.params.id;
-  //   const price = this.state.competition.discount_active
-  //     ? this.state.competition.discount_price
-  //     : this.state.competition.first_day_price;
-  //   const ticket = ticketId;
-  //   const image = this.state.competition.images[0].image;
-  //   const title = this.state.competition.title;
-  //   const is_ticket = true;
-  //   const body = JSON.stringify({
-  //     user_id,
-  //     comp_id,
-  //     ticket_name,
-  //     ticket,
-  //     is_ticket,
-  //     price,
-  //     image,
-  //     title,
-  //   });
-  //   console.log(body);
-  //   try {
-  //     const res = await axios.post(
-  //       REQUEST_URL + `/api/carts/add`,
-  //       body,
-  //       config
-  //     );
-  //     this.props.getCartData();
-  //   } catch (error) {
-  //     console.log("in catch block", error);
-  //   }
-  // };
-
+  addToCart = async (ticketId) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+        Accept: "application/json",
+      },
+    };
+    console.log(this.props);
+    const user_id = this.props.user;
+    const competition = this.props.match.params.id;
+    const price = this.state.competition.discount_active
+      ? this.state.competition.discount_price
+      : this.state.competition.price;
+    const ticket = ticketId;
+    const image = this.state.competition.images[0].image;
+    const title = this.state.competition.title;
+    const is_ticket = true;
+    const body = JSON.stringify({
+      user_id,
+      competition,
+      // ticket_name,
+      ticket,
+      is_ticket,
+      price,
+      image,
+      title,
+    });
+    console.log(body);
+    try {
+      const res = await axios.post(
+        REQUEST_URL + `/api/carts/add/`,
+        body,
+        config
+      );
+      console.log(res, "hahahahaha");
+      this.props.getCartData();
+    } catch (error) {
+      if (error.response.data.timeout) {
+        setTimeout(function () {
+          alert(error.response.data.timeout);
+        }, 500);
+        this.setState({ luckyDipCount: 0 });
+      }
+      console.log("in catch block", error.response);
+    }
+  };
   async componentDidMount() {
     // FETCHED DATA HERE
     await axios
@@ -352,343 +366,352 @@ class Ticket extends React.Component {
   }
 
   render() {
-    const imagetop = this.state.images.map((obj, i) => {
+    if (this.state.isloader === false) {
+      const imagetop = this.state.images.map((obj, i) => {
+        return (
+          <div
+            key={i}
+            className="swiper-slide"
+            style={{
+              backgroundImage: `url(${obj.image})`,
+            }}
+          ></div>
+        );
+      });
       return (
-        <div
-          key={i}
-          className="swiper-slide"
-          style={{
-            backgroundImage: `url(${obj.image})`,
-          }}
-        ></div>
-      );
-    });
-    return (
-      <>
-        {/* <Navbar /> */}
+        <>
+          {/* <Navbar /> */}
 
-        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between main-section">
-          {/* ECARD SECTION */}
+          <div className="main-section">
+            {/* ECARD SECTION */}
 
-          <section className="section-2">
-            <h1 style={{ fontWeight: "200" }}>Fortune Cookie</h1>
-
-            <div className="eCard">
-              <div style={{ position: "relative" }}>
-                <video controls muted>
-                  {/* <source src='' type="video/mp4" /> */}
-                </video>
-                {/* <h2 className='video_uppar_text'>Video 000</h2> */}
-                <h1>
-                  <span>
-                    {this.state.competition.discount_active ? (
-                      <h1>
-                        {/* this.state.competition.discount_price &&  */}
-                        <span
-                          className={"discount-bar"}
-                          style={{ fontWeight: "600" }}
-                        >
-                          $ {this.state.competition.first_day_price}
-                        </span>
-                        <span style={{ fontWeight: "600" }}>
-                          {" "}
-                          ${this.state.competition.discount_price}
-                        </span>
-                      </h1>
-                    ) : (
-                      <h1>
-                        <span style={{ fontWeight: "600" }}>
-                          {" "}
-                          ${this.state.competition.first_day_price}
-                        </span>
-                      </h1>
-                    )}
-                  </span>
-                </h1>
-              </div>
-              <div>
-                <p>Surprize digital Fortune Cookie</p>
-                <p>Discounted compared to Gift Shop</p>
-                <p>
-                  Buy one here, recieve one entry
-                  <br />
-                  to the competition for free
-                  <br />
-                  See below for free entry method
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Slider Section */}
-          <section className="com-section-3" id="com-section-3 ">
-            <h1 style={{ fontWeight: "200" }}>Prize</h1>
-            <div className="portfolio-item-container">
-              <div className="portfolio-item" id="timer">
-                <div className="swiper gallery-top">
-                  <div className="swiper-wrapper">{imagetop}</div>
-                  <div className="swiper-button-next"></div>
-                  <div className="swiper-button-prev"></div>
+            <section className="top-0 z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 section-2">
+              <div className="eCard">
+                <div style={{ position: "relative" }}>
+                  {this.state.competition.discount_active ? (
+                    <h1>
+                      {/* this.state.competition.discount_price &&  */}
+                      <span
+                        className={"discount-bar"}
+                        style={{ fontWeight: "600" }}
+                      >
+                        &#8364; {this.state.competition.price}
+                      </span>
+                      <span style={{ fontWeight: "600" }}>
+                        {" "}
+                        &#8364;
+                        {this.state.competition.discount_price}
+                      </span>
+                    </h1>
+                  ) : (
+                    <h1>
+                      <span style={{ fontWeight: "600" }}>
+                        {" "}
+                        &#8364;
+                        {this.state.competition.price}
+                      </span>
+                    </h1>
+                  )}
                 </div>
-                <h1>{this.state.competition.title}</h1>
+                {/* <div style={{ color: "black" }}>
+                  <p style={{ color: "black" }}>
+                    Surprize digital Fortune Cookie
+                  </p>
+                  <p style={{ color: "black" }}>
+                    Discounted compared to Gift Shop
+                  </p>
+                  <p style={{ color: "black" }}>
+                    Buy one here, recieve one entry
+                    <br />
+                    to the competition for free
+                    <br />
+                    See below for free entry method
+                  </p>
+                </div> */}
               </div>
-              <div className="portfolio-item">
-                <div className="swiper gallery-thumbs">
-                  <div className="swiper-wrapper">{imagetop}</div>
-                </div>
-                <div className="slider-counter">
-                  <p>See Live Draw in</p>
+            </section>
 
-                  <div className="inner-counter">
-                    <div>
-                      <h1>{this.state.days}</h1>
-                      <h3>Days</h3>
-                    </div>
-                    <div>
-                      <h1>{this.state.hours}</h1>
-                      <h3>Hours</h3>
-                    </div>
-                    <div>
-                      <h1>{this.state.minutes}</h1>
-                      <h3>Minutes</h3>
-                    </div>
-                    <div>
-                      <h1>{this.state.seconds}</h1>
-                      <h3>Seconds</h3>
-                    </div>
+            {/* Slider Section */}
+            <section className="com-section-3" id="com-section-3 ">
+              <h1 style={{ fontWeight: "200" }}>Prize</h1>
+              <div className="portfolio-item-container">
+                <div className="portfolio-item" id="timer">
+                  <div className="swiper gallery-top">
+                    <div className="swiper-wrapper">{imagetop}</div>
+                    <div className="swiper-button-next"></div>
+                    <div className="swiper-button-prev"></div>
                   </div>
-                  <button className="comunity">
-                    <a
-                      href="https://www.facebook.com/paradisecompetitions.be"
-                      style={{ color: "black" }}
-                    >
-                      <i className="fas fa-gift"></i>Join community
-                    </a>
-                  </button>
-                  <h4>
-                    on{" "}
-                    {moment(this.state.competition.actual_closing_date).format(
-                      "llll"
-                    )}
-                  </h4>
+                  <h1>{this.state.competition.title}</h1>
                 </div>
-              </div>
-            </div>
-
-            <div className="valueConparent">
-              <div className="valueCont">
-                <div className="row m-0 p-0">
-                  <div className="col">{this.state.soldTickets.length}</div>
-                  <div className="col">
-                    {this.state.availableTickets.length} Left
+                <div className="portfolio-item">
+                  <div className="swiper gallery-thumbs">
+                    <div className="swiper-wrapper">{imagetop}</div>
                   </div>
-                  <div className="col">
-                    {this.state.competition.total_tickets}
+                  <div className="slider-counter">
+                    <p>See Live Draw in</p>
+
+                    <div className="inner-counter">
+                      <div>
+                        <h1>{this.state.days}</h1>
+                        <h3>Days</h3>
+                      </div>
+                      <div>
+                        <h1>{this.state.hours}</h1>
+                        <h3>Hours</h3>
+                      </div>
+                      <div>
+                        <h1>{this.state.minutes}</h1>
+                        <h3>Minutes</h3>
+                      </div>
+                      <div>
+                        <h1>{this.state.seconds}</h1>
+                        <h3>Seconds</h3>
+                      </div>
+                    </div>
+                    {/* <button className="comunity">
+                      <a
+                        href="https://www.facebook.com/paradisecompetitions.be"
+                        style={{ color: "black" }}
+                      >
+                        <i className="fas fa-gift"></i>Join community
+                      </a>
+                    </button> */}
+                    <h4>
+                      on{" "}
+                      {moment(
+                        this.state.competition.actual_closing_date
+                      ).format("llll")}
+                    </h4>
                   </div>
                 </div>
-                <ProgressBar
-                  now={
-                    (this.state.soldTickets.length /
-                      this.state.competition.total_tickets) *
-                    100
+              </div>
+
+              <div className="valueConparent">
+                <div className="valueCont">
+                  <div className="w-full flex justify-between m-0 p-0">
+                    <div className="col">{this.state.soldTickets.length}</div>
+                    <div className="col">
+                      {this.state.availableTickets.length} Left
+                    </div>
+                    <div className="col">
+                      {this.state.competition.total_tickets}
+                    </div>
+                  </div>
+                  {/* <ProgressBar
+                    now={
+                      (this.state.soldTickets.length /
+                        this.state.competition.total_tickets) *
+                      100
+                    }
+                  /> */}
+
+                  <div className="row value-inner  m-0 p-0">
+                    <div
+                      style={{
+                        width: `${
+                          (this.state.soldTickets.length /
+                            this.state.competition.total_tickets) *
+                          100
+                        }%`,
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Ticket section */}
+
+            <div className="tickets">
+              <h1 style={{ fontWeight: "200" }}>Select your tickets</h1>
+              <p>
+                First click a letter, then choose a number. Repeate this in case
+                You want more tickets.
+              </p>
+              {/* <button
+                className="luckydrip"
+                onClick={() => {
+                  if (this.props.isAuthenticated) {
+                    const a = 1;
+                    const b = a + this.state.luckyDipCount;
+                    this.luckyDip();
+                    this.setState({ luckyDipCount: b });
+                  } else {
+                    return this.props.history.replace("/signin");
                   }
-                />
+                }}
+              >
+                Lucky Dip <span>{this.state.luckyDipCount}</span>{" "}
+              </button> */}
 
-                {/* <div className='row value-inner  m-0 p-0'>
-										<div
-											style={{
-												width: `${
-													(this.state.soldTickets.length /
-														this.state.competition
-															.total_tickets) *
-													100
-												}%`,
-											}}></div>
-									</div> */}
-              </div>
-            </div>
-          </section>
+              {/* here our ticket genrator alphbaet buttons are gettting print */}
+              <Tabs
+                id="controlled-tab-example"
+                className="alphabets"
+                defaultActiveKey={this.state.key}
+                activeKey={this.state.key}
+                onSelect={(k) => {
+                  const clickedTicket = this.ticketNumbers(k);
+                  this.setState({
+                    defaultTickets: clickedTicket[0],
+                    defaultStatuses: clickedTicket[1],
+                    defaultTicketIds: clickedTicket[2],
+                    key: k,
+                  });
+                }}
+              >
+                {/* here ticket buttons are getting print */}
+                {this.state.btnArray.map((object, i) => (
+                  <Tab eventKey={object} title={object}></Tab>
+                ))}
+                <div className="ticketsNo">
+                  {this.state.defaultTickets.map((obj, i) => {
+                    // console.log(this.state.btnArray);
+                    switch (this.state.defaultStatuses[i]) {
+                      case 1:
+                        return (
+                          <button
+                            className="ticket"
+                            key={i}
+                            value={obj}
+                            onClick={(e) => {
+                              if (this.props.isAuthenticated) {
+                                const ticketId = this.state.defaultTicketIds[i];
+                                const ticket_name = obj;
+                                this.addToCart(ticketId);
+                                e.target.classList.add("activeTicket");
+                              } else {
+                                return this.props.history.replace(
+                                  "/auth/login/"
+                                );
+                              }
+                            }}
+                          >
+                            {obj}
+                          </button>
+                        );
+                        break;
+                      case 2:
+                        return (
+                          <button disabled key={i}>
+                            {obj}
+                          </button>
+                        );
+                        break;
+                      case 3:
+                        return (
+                          <button
+                            style={{
+                              backgroundColor: this.state.cartTickets.includes(
+                                obj
+                              )
+                                ? "gold"
+                                : "#E0115F",
+                            }}
+                            key={i}
+                          >
+                            {obj}
+                          </button>
+                        );
+                        break;
+                    }
+                  })}
+                </div>
+              </Tabs>
+              <NavLink className="tickets-add" to="/cart">
+                <button className="tickets-addtocart">Go to Cart</button>
+              </NavLink>
+              <div className="discription">
+                <h1 style={{ fontWeight: "200" }}>Description</h1>
+                <div>
+                  <p
+                    style={{
+                      // wordSpacing: "2px",
+                      // fontSize: "25px",
+                      color: "black",
+                    }}
+                  >
+                    {/* <br /> */}
+                    {this.state.competition.title}
+                    <br />
+                    {this.state.competition.total_winners} winner
+                    <br />
+                    Maximum {this.state.competition.total_tickets} Entries
+                    <br />
+                    {this.state.competition.letter_choices} letters{" "}
+                    {this.state.competition.numbers_from} entries per letter
+                    <br />
+                    {ReactHtmlParser(this.state.competition.description)}
+                  </p>
 
-          {/* Ticket section */}
-
-          <div className="tickets">
-            <h1 style={{ fontWeight: "200" }}>Select your tickets</h1>
-            <p>
-              First click a letter, then choose a number. Repeate this in case
-              You want more tickets.
-              <br />
-              Our Lucky Dip makes a random choice.
-            </p>
-            <button
-              className="luckydrip"
-              onClick={() => {
-                if (this.props.isAuthenticated) {
-                  const a = 1;
-                  const b = a + this.state.luckyDipCount;
-                  this.luckyDip();
-                  this.setState({ luckyDipCount: b });
-                } else {
-                  return this.props.history.replace("/signin");
-                }
-              }}
-            >
-              Lucky Dip <span>{this.state.luckyDipCount}</span>{" "}
-            </button>
-
-            {/* here our ticket genrator alphbaet buttons are gettting print */}
-            <Tabs
-              id="controlled-tab-example"
-              className="alphabets"
-              defaultActiveKey={this.state.key}
-              activeKey={this.state.key}
-              onSelect={(k) => {
-                const clickedTicket = this.ticketNumbers(k);
-                this.setState({
-                  defaultTickets: clickedTicket[0],
-                  defaultStatuses: clickedTicket[1],
-                  defaultTicketIds: clickedTicket[2],
-                  key: k,
-                });
-              }}
-            >
-              {/* here ticket buttons are getting print */}
-              {this.state.btnArray.map((object, i) => (
-                <Tab eventKey={object} title={object}>
-                  <div className="ticketsNo">
-                    {this.state.defaultTickets.map((obj, i) => {
-                      switch (this.state.defaultStatuses[i]) {
-                        case 1:
-                          return (
-                            <button
-                              className="ticket"
-                              key={i}
-                              value={obj}
-                              onClick={(e) => {
-                                if (this.props.isAuthenticated) {
-                                  const ticketId =
-                                    this.state.defaultTicketIds[i];
-                                  const ticket_name = obj;
-                                  this.addToCart(ticketId, ticket_name);
-                                  e.target.classList.add("activeTicket");
-                                } else {
-                                  return this.props.history.replace("/signin");
-                                }
-                              }}
-                            >
-                              {obj}
-                            </button>
-                          );
-                          break;
-                        case 2:
-                          return (
-                            <button disabled key={i}>
-                              {obj}
-                            </button>
-                          );
-                          break;
-                        case 3:
-                          return (
-                            <button
-                              style={{
-                                backgroundColor:
-                                  this.state.cartTickets.includes(obj)
-                                    ? "gold"
-                                    : "#E0115F",
-                              }}
-                              key={i}
-                            >
-                              {obj}
-                            </button>
-                          );
-                          break;
-                      }
-                    })}
-                  </div>
-                </Tab>
-              ))}
-            </Tabs>
-
-            <NavLink className="tickets-add" to="/shoppingcart">
-              <button className="tickets-addtocart">Go to Cart</button>
-            </NavLink>
-            <div className="discription">
-              <h1 style={{ fontWeight: "200" }}>Description</h1>
-              <div>
-                <p
-                  style={{
-                    // wordSpacing: "2px",
-                    // fontSize: "25px",
-                    color: "rgb(210,210,210)",
-                  }}
-                >
-                  {/* <br /> */}
-                  {this.state.competition.title}
-                  <br />
-                  {this.state.competition.total_winners} winner
-                  <br />
-                  Maximum {this.state.competition.total_tickets} Entries
-                  <br />
-                  {this.state.competition.letter_choices} letters{" "}
-                  {this.state.competition.numbers_from} entries per letter
-                  <br />
-                  {ReactHtmlParser(this.state.competition.description)}
-                </p>
-
-                {/* <h4 className="comp-description" dangerouslySetInnerHTML={{
+                  {/* <h4 className="comp-description" dangerouslySetInnerHTML={{
                         __html: this.state.competition.description,
                   }} /> */}
-                {/* <h4 className="comp-description">
+                  {/* <h4 className="comp-description">
                     
                   </h4> */}
 
-                <h5 style={{ fontSize: "20px", color: "rgb(210,210,210)" }}>
-                  GOOD LUCK !
-                </h5>
-                <hr />
-                <div>
-                  <p>
-                    The Live Streaming of the draw start 10 minutes before the
-                    counter reaches 00 00 00 here:
-                  </p>
+                  <h5 style={{ fontSize: "20px", color: "black" }}>
+                    GOOD LUCK !
+                  </h5>
+                  <hr />
+                  <div>
+                    <p style={{ color: "black" }}>
+                      The Live Streaming of the draw start 10 minutes before the
+                      counter reaches 00 00 00 here:
+                    </p>
 
-                  <button className="comunity">
-                    <a
-                      href={this.state.competition.live_draw_link}
-                      style={{ color: "black" }}
-                    >
-                      <i className="fas fa-gift"></i>Join our community
-                    </a>
-                  </button>
+                    {/* <button className="comunity">
+                      <a
+                        href={this.state.competition.live_draw_link}
+                        style={{ color: "black" }}
+                      >
+                        <i className="fas fa-gift"></i>Join our community
+                      </a>
+                    </button> */}
+                  </div>
+                  {/* <p style={{ color: "black" }}>
+                    For free entry method see TnC. Buy one digital Fortune
+                    Cookie here, receive one competition entry ticket for free.{" "}
+                    <br />
+                    If all of the tickets of the competition are not selected by
+                    the time the countdown timer reaches zero, an additional 7
+                    days will be added to the countdown timer. <br />
+                    If all of the tickets have not been selected after the first
+                    extended time period, a 7 day extension will be added up to
+                    a maximum of 4 times. <br />
+                    If all of the tickets have not been selected after 4
+                    extensions of 7 days, a cash alternative prize of 70% of the
+                    money taken in this competition will be awarded to the
+                    winner(s) instead of the prize. <br />
+                    Our competitions are totally transparent. Our Winners Podium
+                    page with winners names and winners photographs shows proof
+                    of it. Our competitions are totally ligit. Check our
+                    Trustpilot reviews.
+                  </p> */}
                 </div>
-                <p>
-                  For free entry method see TnC. Buy one digital Fortune Cookie
-                  here, receive one competition entry ticket for free. <br />
-                  If all of the tickets of the competition are not selected by
-                  the time the countdown timer reaches zero, an additional 7
-                  days will be added to the countdown timer. <br />
-                  If all of the tickets have not been selected after the first
-                  extended time period, a 7 day extension will be added up to a
-                  maximum of 4 times. <br />
-                  If all of the tickets have not been selected after 4
-                  extensions of 7 days, a cash alternative prize of 70% of the
-                  money taken in this competition will be awarded to the
-                  winner(s) instead of the prize. <br />
-                  Our competitions are totally transparent. Our Winners Podium
-                  page with winners names and winners photographs shows proof of
-                  it. Our competitions are totally ligit. Check our Trustpilot
-                  reviews.
-                </p>
               </div>
             </div>
           </div>
-        </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <Footer />
-      </>
-    );
+
+          <Footer />
+        </>
+      );
+    } else {
+      return (
+        <>
+          {/* <Navbar /> */}
+          <section
+            className="main-section"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            {/* <Loader type="ThreeDots" color="#00FFEA" height={80} width={80} />
+             */}
+          </section>
+          <Footer />
+        </>
+      );
+    }
   }
 }
 const mapStateToProps = (state) => ({
@@ -697,4 +720,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, null)(Ticket);
+export default connect(mapStateToProps, { getCartData })(Ticket);

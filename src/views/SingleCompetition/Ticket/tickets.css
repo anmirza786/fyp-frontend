@@ -1,12 +1,16 @@
 /* SLIDER SECTION */
-
+.tab-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .com-section-3 {
   width: 1070px;
   margin: auto;
   margin-top: 30px;
 }
 .com-section-3 h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   color: black;
 }
 .com-section-3 .portfolio-item-container {
@@ -34,12 +38,12 @@
 }
 .com-section-3 .portfolio-item button {
   padding: 2px 30px 2px 30px;
-  font-size: 2rem;
+  font-size: 1rem;
   border-radius: 20px;
   margin-top: 5px;
 }
 .com-section-3 .portfolio-item:nth-child(1) h1 {
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 600;
   color: black;
   margin-top: 10px;
@@ -81,7 +85,7 @@
   background-repeat: no-repeat;
 }
 .com-section-3 button:hover {
-  background-color: #0EA5E9;
+  background-color: #0ea5e9;
 }
 .com-section-3 .swiper-slide:hover {
   transform: scale(1.07);
@@ -91,7 +95,7 @@
   border: 2px solid white;
   border-radius: 50%;
   padding: 20px;
-  font-size: 1rem !important;
+  font-size: 0.5rem !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,7 +135,7 @@
   padding-bottom: 30px;
 }
 .slider-counter > p {
-  color: rgb(210, 210, 210);
+  color: black;
   font-size: 1.7rem;
 }
 .inner-counter {
@@ -149,13 +153,13 @@
   padding-top: 5px;
 }
 .inner-counter > div > h1 {
-  font-size: 5rem;
+  font-size: 2rem;
   margin: 0;
 }
 .inner-counter > div > h3,
 .slider-counter > h4 {
-  font-size: 1.7rem;
-  color: rgb(210, 210, 210);
+  font-size: 1.2rem;
+  color: black;
 }
 .slider-counter .comunity {
   padding: 3px 26px 3px 26px;
@@ -187,8 +191,8 @@
   margin-top: 50px;
 }
 .valueCont div:nth-child(1) {
-  font-size: 2rem;
-  color: #0EA5E9;
+  font-size: 1rem;
+  color: #0ea5e9;
 }
 .valueCont div:nth-child(1) div:nth-child(1) {
   text-align: start;
@@ -200,7 +204,7 @@
   text-align: end;
 }
 .value-inner {
-  border: 2px solid #0EA5E9;
+  border: 2px solid #0ea5e9;
   width: 100%;
   height: 3vh;
   border-radius: 50px;
@@ -209,14 +213,14 @@
 .value-inner > div {
   position: absolute;
   height: 100%;
-  background-color: #0EA5E9;
+  background-color: #0ea5e9;
   border-radius: 50px 50px 50px 50px;
 }
 .c-section-1 .items-colorfull {
   width: 90%;
   height: 20px;
   border-radius: 10px;
-  border: 2px solid #0EA5E9;
+  border: 2px solid #0ea5e9;
   margin-bottom: 15px;
   position: relative;
 }
@@ -230,7 +234,7 @@
   }
   .com-section-3 h1 {
     width: 100%;
-    font-size: 3.4rem;
+    font-size: 3rem;
     margin: 0;
   }
 
@@ -263,7 +267,7 @@
   }
   .slider-counter .comunity {
     padding: 3px 26px 3px 26px;
-    font-size: 1.5rem !important;
+    font-size: 0.75rem !important;
     margin-left: 8px;
     background-color: #4287f5;
     border-radius: 10px;
@@ -280,7 +284,7 @@
     margin-top: 20px;
   }
   .valueCont div {
-    font-size: 1.5rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -303,7 +307,7 @@
 }
 @media (min-width: 900px) and (max-width: 1200px) {
   .com-section-3 h1 {
-    font-size: 4rem;
+    font-size: 3rem;
   }
   .valueConparent {
     width: 100%;
@@ -395,19 +399,19 @@
 }
 .tickets h1 {
   width: 100%;
-  font-size: 3.5rem;
-  color: #0EA5E9;
+  font-size: 2rem;
+  color: #0ea5e9;
 }
 .tickets p {
   width: 100%;
   margin-top: 20px;
-  color: rgb(210, 210, 210);
-  font-size: 1.8rem;
+  color: black;
+  font-size: 1.2rem;
 }
 .luckydrip {
   padding: 5px 20px 5px 20px;
-  font-size: 2rem;
-  background-color: #0EA5E9;
+  font-size: 1rem;
+  background-color: #0ea5e9;
   color: black;
   align-self: flex-end;
   position: relative;
@@ -428,9 +432,13 @@
 .luckydrip:hover {
   transform: scale(1.05);
 }
+.alphabets .nav-item .nav-link.active{
+  background: goldenrod !important;
+}
 .alphabets,
 .ticketsNo {
-  width: 750px;
+  width: 100%;
+  font-size: 1rem !important;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -440,11 +448,18 @@
   border: none;
   border-radius: 0 !important;
 }
+.alphabets button {
+  background-color: #0ea5e9;
+  margin: 5px 10px;
+  font-size: 1rem;
+  padding: 10px !important;
+  border-radius: 40%;
+}
 .alphabets a {
   width: 40px;
   height: 40px;
-  border: 1px solid #0EA5E9 !important;
-  font-size: 2rem;
+  border: 1px solid #0ea5e9 !important;
+  font-size: 0.5rem;
   margin-right: 15px;
   background-color: transparent;
   color: rgb(210, 210, 210);
@@ -454,29 +469,30 @@
 .alphabets a.active,
 .alphabets a:active,
 .alphabets a:focus {
-  border: 1px solid #0EA5E9 !important;
-  background-color: #0EA5E9 !important;
+  border: 1px solid #0ea5e9 !important;
+  background-color: #0ea5e9 !important;
   color: black !important;
   border-radius: 0 !important;
 }
 .alphabets a:hover {
-  background-color: #0EA5E9;
+  background-color: #0ea5e9;
   color: black;
 }
 .ticketsNo {
-  width: 90%;
+  width: 100% ;
 }
 .ticketsNo button {
-  min-width: 90px;
-  height: 40px;
-  font-size: 2.3rem;
+  min-width: 50px;
+  height: 70px;
+  border-radius: 100%;
+  font-size: 1rem;
   margin-right: 15px;
   background-color: transparent;
   color: black;
   margin-top: 15px;
 }
 .ticketsNo button {
-  background-color: #0EA5E9;
+  background-color: #0ea5e9;
   cursor: pointer;
 }
 .ticketsNo button:disabled {
@@ -495,8 +511,8 @@
 }
 .tickets-addtocart {
   padding: 5px 20px 5px 20px;
-  font-size: 2rem;
-  background-color: #0EA5E9;
+  font-size: 1rem;
+  background-color: #0ea5e9;
   color: black;
   cursor: pointer;
   margin-top: 2%;
@@ -513,8 +529,8 @@
   line-height: 40px;
 }
 .discription > h1 {
-  font-size: 3.5rem;
-  color: #0EA5E9;
+  font-size: 2rem;
+  color: #0ea5e9;
 }
 .discription > div > div {
   display: flex;
@@ -529,7 +545,7 @@
 }
 .discription .comunity {
   padding: 5px 20px 5px 20px !important;
-  font-size: 1.5rem;
+  font-size: 0.5rem;
   margin-left: 20px;
   background-color: #4287f5;
   border-radius: 30px;
@@ -550,7 +566,7 @@
   background-color: rgb(108, 150, 217);
 }
 .discription h4 {
-  font-size: 2rem;
+  font-size: 0.5rem;
   margin-top: 15px;
   color: rgb(210, 210, 210);
 }
@@ -562,7 +578,7 @@
     align-items: flex-start !important;
   }
   .discription > div > div p {
-    font-size: 1.5rem !important;
+    font-size: 0.75rem !important;
   }
   .discription > div > div button {
     align-self: center;
@@ -571,18 +587,18 @@
 
 @media (max-width: 345px) {
   .tickets {
-    width: 270px;
+    width: 100%;
   }
   .alphabets,
   .ticketsNo {
-    width: 270px;
+    width: 100%;
   }
   .alphabets a {
     margin-right: 8px;
     margin-left: 6px;
   }
   .ticketsNo button {
-    min-width: 79px;
+    /* min-width: 79px; */
     margin-right: 5px;
     margin-left: 5px;
   }
@@ -590,18 +606,18 @@
 
 @media (min-width: 346px) and (max-width: 480px) {
   .tickets {
-    width: 310px;
+    width: 100%;
   }
   .alphabets,
   .ticketsNo {
-    width: 310px;
+    width: 100%;
   }
   .alphabets a {
     margin-right: 5px;
     margin-left: 6.5px;
   }
   .ticketsNo button {
-    min-width: 79px;
+    /* min-width: 79px; */
     margin-right: 10px;
     margin-left: 12px;
   }
@@ -609,11 +625,11 @@
 
 @media (min-width: 481px) and (max-width: 600px) {
   .tickets {
-    width: 500px;
+    width: 100%;
   }
   .alphabets,
   .ticketsNo {
-    width: 500px;
+    width: 100%x;
   }
   .ticketsNo {
     margin-left: 0;
@@ -623,7 +639,7 @@
     margin-left: 7px;
   }
   .ticketsNo button {
-    min-width: 79px;
+    /* min-width: 79px; */
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -631,11 +647,11 @@
 
 @media (min-width: 601px) and (max-width: 786px) {
   .tickets {
-    width: 650px;
+    width: 100%;
   }
   .alphabets,
   .ticketsNo {
-    width: 500px;
+    width: 100%;
   }
   .ticketsNo {
     margin-left: 0;
@@ -645,7 +661,7 @@
     margin-right: 4px;
   }
   .ticketsNo button {
-    min-width: 79px;
+    /* min-width: 79px; */
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -653,11 +669,11 @@
 
 @media (min-width: 800px) and (max-width: 1000px) {
   .tickets {
-    width: 700px;
+    width: 100%;
   }
   .alphabets,
   .ticketsNo {
-    width: 500px;
+    width: 100%;
   }
   .ticketsNo {
     margin-left: 0;
@@ -667,7 +683,7 @@
     margin-right: 4px;
   }
   .ticketsNo button {
-    min-width: 79px;
+    /* min-width: 79px; */
     margin-left: 10px;
     margin-right: 10px;
   }
@@ -675,11 +691,11 @@
 
 @media (min-width: 1001px) and (max-width: 1100px) {
   .tickets {
-    width: 900px;
+    width: 100%;
   }
   .alphabets,
   .ticketsNo {
-    width: 750px;
+    width: 100%;
   }
   .ticketsNo {
     margin-left: 0;
@@ -688,11 +704,11 @@
     margin-right: 14px;
   }
   .ticketsNo button {
-    min-width: 79px;
+    /* min-width: 79px; */
     margin-right: 14px;
   }
   .discription > div > div button {
-    font-size: 1rem !important;
+    font-size: 0.5rem !important;
   }
 }
 .comp-description {

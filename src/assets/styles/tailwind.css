@@ -11,6 +11,8 @@ Document
 Use a better box model (opinionated).
 */
 
+
+
 *,
 *::before,
 *::after {
@@ -3090,4 +3092,32 @@ select {
 }
 .h-150 {
   height: 150px;
+}
+.shoopingnavbar .dustbinn {
+	position: relative;
+	padding: 5px;
+}
+.dustbinn > span {
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	right: 0%;
+	top: -10%;
+	padding: 10px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black !important;
+	font-size: 1.5rem;
+	background-color: var(--primary);
+}
+.dustbinn {
+	position: relative;
+	font-size: 3rem;
+	color: black;
+}
+.dustbinn:hover {
+	color: var(--primary);
+	text-decoration: none;
 }

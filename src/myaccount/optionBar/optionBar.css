@@ -1,0 +1,75 @@
+.my-acount-sideNav {
+  width: 35%;
+  height: 430px;
+}
+.my-acount-sideNav ul {
+  width: 65%;
+  height: 100%;
+  position: relative;
+}
+.my-acount-sideNav-links {
+  color: rgb(210, 210, 210);
+}
+.my-acount-sideNav .logout {
+  position: absolute;
+  bottom: 0;
+}
+.my-acount-sideNav-activelink li {
+  color: black;
+  background-color: var(--primary) !important;
+}
+.my-acount-sideNav-activelink:hover {
+  color: white !important;
+}
+.my-acount-sideNav-links:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+.my-acount-sideNav-activelink {
+  background-color: var(--primary);
+}
+.my-acount-sideNav ul li {
+  width: 100%;
+  padding: 9px 10px 9px 10px;
+  font-size: 2rem;
+  margin: 8px 0 8px 0;
+}
+.my-acount-sideNav ul li i {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+.fa-alt {
+  transform: rotate(-30deg);
+}
+
+@media (max-width: 900px) {
+  .my-acount-sideNav {
+    width: 100%;
+  }
+  .my-acount-sideNav ul {
+    width: 100%;
+  }
+  .my-acount-sideNav .logout {
+    position: relative;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 900px) {
+  .my-acount-sideNav ul .my-acount-sideNav-links {
+    width: 100%;
+  }
+  .my-acount-sideNav ul .my-acount-sideNav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .my-acount-sideNav ul li {
+    width: 50%;
+  }
+}
+@media (min-width: 902px) and (max-width: 1100px) {
+  .my-acount-sideNav ul {
+    width: 90%;
+  }
+}

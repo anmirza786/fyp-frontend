@@ -9,9 +9,12 @@ import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
 import { NavLink } from "react-router-dom";
 
-const Navbar = ({ logout, isAuthenticated }) => {
+const Navbar = ({ logout, isAuthenticated,cart }) => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-
+  let userCart = [];
+  if (cart !== null && cart !== undefined) {
+    userCart = cart;
+  }
   const guestLinks = () => (
     <Fragment>
       <li className="flex items-center">
@@ -92,15 +95,11 @@ const Navbar = ({ logout, isAuthenticated }) => {
                 </Link>
               </li>
               {isAuthenticated ? authLinks() : guestLinks()}
-              <li className="flex items-center">
+              
+              <li className="flex items-center dustbin">
                 <Link to="/cart">
-                  <a
-                    className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                    target="_blank"
-                    style={{ fontSize: "20px" }}
-                  >
-                    <i class="fas fa-shopping-cart"></i>
-                  </a>
+                  <span style={{ fontWeight: "400" }}>{userCart.length}</span>
+                  <i className="fas fa-shopping-cart"></i>
                 </Link>
               </li>
             </ul>
@@ -113,5 +112,6 @@ const Navbar = ({ logout, isAuthenticated }) => {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  cart: state.auth.cart,
 });
 export default connect(mapStateToProps, { logout })(Navbar);

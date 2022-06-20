@@ -25,6 +25,7 @@ class Section1 extends React.Component {
       .get(REQUEST_URL + `/api/competitions/`)
       .then((res) => {
         // filter_competitions_start
+        console.log(res.data);
         const satsession = res.data.filter((obj) => {
           this.setState({ satTitle: 1 });
           return obj.group_title === 1;
@@ -342,32 +343,26 @@ class Section1 extends React.Component {
                       ? "Sold Out !"
                       : ""}
                   </div>
-                  <ProgressBar
-                    now={
-                      (soldTickets /
-                        this.state.xMasCompetitions[index].tickets.length) *
-                      100
-                    }
-                  />
-                  {/* <div class='items-colorfull'>
-											<div
-												style={{
-													width: `${(soldTickets /
-														this.state.xMasCompetitions[index].tickets
-															.length) *
-														100
-														}%`,
-												}}
-												className='progress-bar'
-											></div>
-										</div> */}
+
+                  <div class="items-colorfull">
+                    <div
+                      style={{
+                        width: `${
+                          (soldTickets /
+                            this.state.xMasCompetitions[index].tickets.length) *
+                          100
+                        }%`,
+                      }}
+                      className="progress-bar"
+                    ></div>
+                  </div>
                 </div>
               </div>
             </Link>
             <h3
               style={{
                 fontWeight: "700",
-                fontSize: "2.0rem",
+                fontSize: "1.0rem",
                 marginBottom: "0",
               }}
             >
@@ -383,7 +378,7 @@ class Section1 extends React.Component {
                   className={"discount-bar"}
                   style={{
                     fontWeight: "600",
-                    fontSize: "2.0rem",
+                    fontSize: "1.0rem",
                   }}
                 >
                   $ {obj.price}{" "}
@@ -391,7 +386,7 @@ class Section1 extends React.Component {
                 <span
                   style={{
                     fontWeight: "600",
-                    fontSize: "2.0rem",
+                    fontSize: "1.0rem",
                   }}
                 >
                   {" "}
@@ -403,7 +398,7 @@ class Section1 extends React.Component {
                 <span
                   style={{
                     fontWeight: "600",
-                    fontSize: "2.0rem",
+                    fontSize: "1.0rem",
                   }}
                 >
                   {" "}
@@ -421,27 +416,27 @@ class Section1 extends React.Component {
       <>
         {/* conditional_rendering */}
         {this.state.satTitle === 1 && satsession != 0 ? (
-          <section className="c-section-1">
+          <section className="container c-section-1">
             <h1 style={{ fontWeight: 200 }}>Sat Session</h1>
             <div className="items-container">{satsession}</div>
           </section>
         ) : null}
 
         {this.state.activeTitle === 2 && activeCompetitions != 0 ? (
-          <section className="c-section-1">
+          <section className="container c-section-1">
             <h1 style={{ fontWeight: 200 }}>Active Competitions</h1>
             <div className="items-container">{activeCompetitions}</div>
           </section>
         ) : null}
         {this.state.fitTitle === 3 && fit4Competitions != 0 ? (
-          <section className="c-section-1">
+          <section className="conatiner c-section-1">
             <h1 style={{ fontWeight: 200 }}>Fit 4 Summer Competitions</h1>
             <div className="items-container">{fit4Competitions}</div>
           </section>
         ) : null}
 
         {this.state.xMasTitle === 4 && xMasCompetitions != 0 ? (
-          <section className="c-section-1">
+          <section className="container c-section-1">
             <h1 style={{ fontWeight: 200 }}>X-mas Competitions</h1>
             <div className="items-container">{xMasCompetitions}</div>
           </section>

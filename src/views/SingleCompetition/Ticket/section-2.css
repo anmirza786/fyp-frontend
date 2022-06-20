@@ -1,7 +1,7 @@
 .section-2 {
 	width: 1070px;
 	margin: 0 auto;
-	margin-top: 50px;
+	margin-top: 10px;
 }
 
 .section-2 > h1 {
@@ -30,7 +30,7 @@ Video {
 
 .eCard > div {
 	width: 30%;
-	min-height: 230px;
+	/* min-height: 230px; */
 }
 .eCard > div > video {
 	width: 100%;
@@ -121,7 +121,7 @@ Video {
 	}
 	.eCard > div {
 		width: 50%;
-		min-height: 200px;
+		/* min-height: 200px; */
 	}
 	.eCard > div > video {
 		width: 100%;
@@ -139,7 +139,7 @@ Video {
 	}
 	.eCard > div {
 		width: 35%;
-		min-height: 200px;
+		/* min-height: 200px; */
 	}
 	.eCard > div > video {
 		width: 100%;

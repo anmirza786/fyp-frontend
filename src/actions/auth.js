@@ -53,7 +53,7 @@ export const checkAuthenticated = () => async (dispatch) => {
         dispatch({
           type: AUTHENTICATED_SUCCESS,
         });
-        // dispatch(getCartData());
+        dispatch(getCartData());
       } else {
         dispatch({
           type: AUTHENTICATED_FAIL,
@@ -126,7 +126,7 @@ export const signup =
     await axios
       .post(REQUEST_URL + `/auth/users/`, body, config)
       .then((res) => {
-        // dispatch(login(email, password));
+        dispatch(login(email, password));
         dispatch({
           type: SIGNUP_SUCCESS,
           payload: res.data,
@@ -220,7 +220,7 @@ export const load_user = () => async (dispatch) => {
         type: USER_LOADED_SUCCESS,
         payload: res.data,
       });
-      // dispatch(getCartData());
+      dispatch(getCartData());
     } catch (err) {
       console.log(err, "this is error while loading user");
       dispatch({
@@ -243,62 +243,63 @@ export const logout = () => (dispatch) => {
   console.log(localStorage.getItem("access"));
 };
 
-// export const checkAuthTimeout = expirationTime => {
-//     return dispatch => {
-//         setTimeout(() => {
-//             dispatch(logout());
-//         }, expirationTime * 1000)
-//     }
-// }
-// export const getCartData = () => async (dispatch) => {
-//   dispatch({
-//     type: GET_CART_DATA_START,
-//   });
-//   const config = {
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `JWT ${localStorage.getItem("access")}`,
-//       Accept: "application/json",
-//     },
-//   };
-//   await axios
-//     .get(REQUEST_URL + `/api/carts/active`, config)
-//     .then((res) => {
-//       if (res.data.items.length > 0) {
-//         dispatch({
-//           type: GET_CART_DATA_SUCCESS,
-//           payload: res.data.items,
-//         });
-//       } else {
-//         dispatch({
-//           type: GET_CART_DATA_FAIL,
-//         });
-//       }
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//       dispatch({
-//         type: GET_CART_DATA_FAIL,
-//       });
-//     });
-// };
+export const checkAuthTimeout = (expirationTime) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime * 1000);
+  };
+};
+export const getCartData = () => async (dispatch) => {
+  dispatch({
+    type: GET_CART_DATA_START,
+  });
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `JWT ${localStorage.getItem("access")}`,
+      Accept: "application/json",
+    },
+  };
+  await axios
+    .get(REQUEST_URL + `/api/carts/active/`, config)
+    .then((res) => {
+      console.log(res.data.cart_items.length);
+      if (res.data.cart_items.length >= 0) {
+        dispatch({
+          type: GET_CART_DATA_SUCCESS,
+          payload: res.data.cart_items,
+        });
+      } else {
+        dispatch({
+          type: GET_CART_DATA_FAIL,
+        });
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      dispatch({
+        type: GET_CART_DATA_FAIL,
+      });
+    });
+};
 
-// export const getDiscounts = () => async (dispatch) => {
-//   const config = {
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `JWT ${localStorage.getItem("access")}`,
-//       Accept: "application/json",
-//     },
-//   };
-//   await axios.get(REQUEST_URL + `/api/carts/discounts`, config).then((res) => {
-//     console.log(res);
-//     dispatch({
-//       type: GET_DISCOUNTS,
-//       payload: res.data,
-//     });
-//   });
-// };
+export const getDiscounts = () => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `JWT ${localStorage.getItem("access")}`,
+      Accept: "application/json",
+    },
+  };
+  await axios.get(REQUEST_URL + `/api/carts/discounts`, config).then((res) => {
+    console.log(res);
+    dispatch({
+      type: GET_DISCOUNTS,
+      payload: res.data,
+    });
+  });
+};
 
 export const reset_password = (email) => async (dispatch) => {
   const config = {
