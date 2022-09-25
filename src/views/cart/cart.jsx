@@ -263,14 +263,14 @@ const Cart = ({
       }
     });
     return (
-      <div className="shoopingcart-body">
+      <div className="shoopingcart-body container header relative pt-1 items-center">
         {/* <Navbar /> */}
-        <section className="mainCart">
+        <section className="mainCart ">
           <div className="first-div-cont">
-            <div>
+            <div className="">
               <h1>Cart</h1>
               <Link to="/competitions">
-                <button className="cont-shop-btn">
+                <button className="how-to-play ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150">
                   <i className="fas fa-chevron-left"></i>CONTINUE SHOPPING
                 </button>
               </Link>
@@ -300,7 +300,7 @@ const Cart = ({
 
           <div className="last-div-cont">
             <div>
-              <button className="submit-co-code">Submit Coupon Code</button>
+              <div className="submit-co-code"></div>
               <div>
                 <h1>
                   Subtotal:&nbsp;
@@ -319,7 +319,10 @@ const Cart = ({
                   className="NavLink"
                   to="/order"
                 >
-                  <button className="pro-checkout-btn" to="/order">
+                  <button
+                    className="how-to-play ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+                    to="/order"
+                  >
                     <i className="fas fa-chevron-right"></i>PROCEED TO CHECKOUT
                   </button>
                 </NavLink>

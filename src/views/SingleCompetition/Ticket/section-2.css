@@ -23,7 +23,7 @@ Video {
 }
 .eCard {
 	width: 100%;
-	min-height: 320px;
+	/* min-height: 320px; */
 	display: flex;
 	align-items: center;
 }

@@ -417,27 +417,27 @@ class Section1 extends React.Component {
         {/* conditional_rendering */}
         {this.state.satTitle === 1 && satsession != 0 ? (
           <section className="container c-section-1">
-            <h1 style={{ fontWeight: 200 }}>Sat Session</h1>
+            <h1>Sat Session</h1>
             <div className="items-container">{satsession}</div>
           </section>
         ) : null}
 
         {this.state.activeTitle === 2 && activeCompetitions != 0 ? (
           <section className="container c-section-1">
-            <h1 style={{ fontWeight: 200 }}>Active Competitions</h1>
+            <h1>Active Competitions</h1>
             <div className="items-container">{activeCompetitions}</div>
           </section>
         ) : null}
         {this.state.fitTitle === 3 && fit4Competitions != 0 ? (
           <section className="conatiner c-section-1">
-            <h1 style={{ fontWeight: 200 }}>Fit 4 Summer Competitions</h1>
+            <h1>Fit 4 Summer Competitions</h1>
             <div className="items-container">{fit4Competitions}</div>
           </section>
         ) : null}
 
         {this.state.xMasTitle === 4 && xMasCompetitions != 0 ? (
           <section className="container c-section-1">
-            <h1 style={{ fontWeight: 200 }}>X-mas Competitions</h1>
+            <h1>X-mas Competitions</h1>
             <div className="items-container">{xMasCompetitions}</div>
           </section>
         ) : null}

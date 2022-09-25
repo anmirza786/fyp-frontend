@@ -1,13 +1,13 @@
 .order-body {
   width: 100%;
   min-height: 120vh;
-  padding-bottom: 150px;
-  background-color: rgb(240, 240, 240) !important;
+  padding-bottom: 20px;
+  /* background-color: rgb(240, 240, 240) !important; */
 }
 
 .shoopingnavbar {
   width: 1080px;
-  background-color: rgb(240, 240, 240) !important;
+  /* background-color: rgb(240, 240, 240) !important; */
   margin: auto;
 }
 .shoopingnavbar .figure {
@@ -21,7 +21,7 @@
 }
 .shoopingnavbar .figure .figcaption {
   color: black;
-  font-size: 2.5rem;
+  /* font-size: 1.5rem; */
   margin-top: 79px;
   margin-left: -50px;
 }
@@ -41,16 +41,16 @@
   align-items: center;
 }
 .shoopingnavbar nav ul li h2 {
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
   color: gray;
 }
 
 .shoopingnavbar nav ul li h1 {
-  font-size: 2.4rem;
+  /* font-size: 1rem; */
 }
 .shoopingnavbar nav input {
   padding: 5px 130px 5px 10px;
-  font-size: 2rem;
+  /* font-size: 1rem; */
   outline: none;
   border: none;
 }
@@ -86,12 +86,12 @@
   justify-content: center;
   align-items: center;
   color: black !important;
-  font-size: 1.5rem;
+  /* font-size: 1rem; */
   background-color: var(--primary);
 }
 .dustbinn {
   position: relative;
-  font-size: 3rem;
+  /* font-size: 1.2rem; */
   color: black;
 }
 .dustbinn:hover {
@@ -115,7 +115,7 @@
 }
 .decBtn > i,
 .incBtn > i {
-  font-size: 1rem;
+  /* font-size: 1rem; */
 }
 
 @media (min-width: 0px) and (max-width: 800px) {
@@ -127,7 +127,7 @@
     margin-top: -5px !important;
   }
   .header .figure .figcaption {
-    font-size: 1.7rem;
+    /* font-size: 1rem; */
     margin-top: 86px;
     margin-left: -60px;
   }
@@ -137,7 +137,7 @@
   .order-body nav ul input {
     padding: 5px 10px 5px 20px !important;
     border-radius: 20px !important;
-    font-size: 1.8rem !important;
+    /* font-size: 1rem !important; */
     margin-top: 30px;
   }
   .order-body .england {
@@ -152,7 +152,7 @@
 
   .navbar-toggler {
     background-color: white;
-    font-size: 1.8rem;
+    /* font-size: 1rem; */
     margin-right: 10px;
     margin-top: 60px;
   }
@@ -177,7 +177,7 @@
   }
   .navbar-toggler {
     background-color: white;
-    font-size: 1.8rem;
+    /* font-size: 1rem; */
     margin-right: 10px;
     margin-top: 40px;
   }
@@ -194,7 +194,7 @@
 
   .shoopingnavbar nav input {
     padding: 5px 0px 5px 2px;
-    font-size: 2rem;
+    /* font-size: 1.2rem; */
     outline: none;
     border: none;
   }
@@ -215,7 +215,7 @@
   align-items: center;
 }
 .shopingcart > div:nth-child(1) h1 {
-  font-size: 4rem;
+  /* font-size: 2rem; */
   color: black;
 }
 .shopingcart > div:nth-child(1) button:hover {
@@ -230,7 +230,7 @@
   margin-top: 10px !important;
 }
 .shopingcart .head > div h1 {
-  font-size: 2rem;
+  /* font-size: 2rem; */
   font-weight: bolder;
   color: gray;
 }
@@ -250,7 +250,7 @@
   width: 95%;
 }
 .shopping-item > div:last-child i {
-  font-size: 3rem;
+  /* font-size: 3rem; */
   padding-left: 10px;
   cursor: pointer;
 }
@@ -287,16 +287,16 @@
   padding-left: 10px;
 }
 .shopping-item > .iner-item > div:nth-child(1) div h3 {
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
   color: darkgrey;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 .shopping-item > .iner-item > div:nth-child(1) div h1 {
-  font-size: 1.9rem;
+  /* font-size: 1.9rem; */
 }
 .shopping-item > .iner-item > div:not(:first-child) h1 {
-  font-size: 2.3rem;
+  /* font-size: 2.3rem; */
   color: black;
 }
 .shopping-item > .iner-item > div {
@@ -308,7 +308,7 @@
 .checkout-section > div:nth-child(1) button {
   padding: 5px 20px 5px 20px;
   background-color: white;
-  font-size: 1.7rem;
+  /* font-size: 1.7rem; */
   transition: all 0.3s;
 }
 .proc-chekout,
@@ -334,7 +334,7 @@
   padding-right: 20px;
 }
 .checkout-section > div:nth-child(2) div:nth-child(1) span {
-  font-size: 3rem;
+  /* font-size: 3rem; */
   margin-left: 10px;
 }
 .iner-item > div:nth-child(2) h1,
@@ -347,13 +347,13 @@
     overflow-x: scroll;
   }
   .shopingcart > div:nth-child(1) h1 {
-    font-size: 2rem;
+    /* font-size: 2rem; */
   }
 
   .checkout-section > div:nth-child(2) div button {
     padding: 10px 9px 10px 9px;
     background-color: var(--primary);
-    font-size: 1.8rem;
+    /* font-size: 1.8rem; */
     margin-right: 10px;
   }
   .shopingcart > div:nth-child(1) {
@@ -380,19 +380,19 @@
   .checkout-section > div:nth-child(2) div button {
     padding: 13px 5px 13px 9px;
     background-color: var(--primary);
-    font-size: 1.6rem;
+    /* font-size: 1.6rem; */
     margin-right: 10px;
   }
   .checkout-section > div:nth-child(1) button {
     padding: 13px 15px 13px 15px;
-    font-size: 1.6rem;
+    /* font-size: 1.6rem; */
     margin-right: 10px;
   }
   .totalprize {
     margin: 0 !important;
   }
   .totalprize h1 span {
-    font-size: 2rem !important;
+    /* font-size: 2rem !important; */
   }
 }
 @media (min-width: 1400px) and (max-width: 1450px) {
@@ -456,7 +456,7 @@
 
 .orderMainCart {
   width: 100%;
-  margin-top: 35px;
+  /* margin-top: 35px; */
 }
 .first-div {
   width: 1070px;
@@ -468,12 +468,12 @@
   align-items: center;
 }
 .first-div > div h1 {
-  font-size: 4rem;
+  font-size: 2.5rem;
 }
 .cont-shop-btn {
   width: 250px;
   height: 40px;
-  font-size: 1.6rem;
+  /* font-size: 1rem; */
   background-color: var(--primary);
   margin-right: 20px;
 }
@@ -497,12 +497,12 @@
   width: 55%;
 }
 .form-group label {
-  font-size: 20px;
+  /* font-size: 20px; */
 }
 .form-group input,
 .form-group textarea {
   padding: 10px;
-  font-size: 17px;
+  /* font-size: 17px; */
   border-color: transparent;
 }
 
@@ -510,7 +510,7 @@ form .btn {
   width: 100%;
   margin-top: 15px;
   padding: 8px 0;
-  font-size: 18px;
+  /* font-size: 18px; */
   text-align: center;
   background-color: rgb(0, 255, 234);
   color: black;
@@ -542,7 +542,7 @@ form .btn:hover {
   width: 15%;
 }
 .order-head > div > h1 {
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
   color: #80808e;
   font-weight: bolder;
 }
@@ -563,7 +563,7 @@ form .btn:hover {
   border-right: 4px solid rgb(240, 240, 240);
 }
 .order-items > div > h1 {
-  font-size: 2rem;
+  /* font-size: 2rem; */
   color: #8e8e9a;
 }
 .order-items > div:nth-child(1) {
@@ -594,7 +594,7 @@ form .btn:hover {
   height: 28px;
   border-radius: 50%;
   background-color: var(--primary);
-  font-size: 17px;
+  /* font-size: 17px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -612,12 +612,12 @@ form .btn:hover {
 }
 .order-items > div > div > h4 {
   color: #8e8e9a;
-  font-size: 1.7rem;
+  /* font-size: 1rem; */
 }
 .order-items > div > div > h2 {
   color: black;
   margin-top: 10px;
-  font-size: 1.8rem;
+  /* font-size: 1.1rem; */
   display: flex;
   justify-content: space-between;
 }
@@ -634,7 +634,7 @@ form .btn:hover {
   background-color: #f0f0f0 !important;
 }
 .del-icon i {
-  font-size: 2rem;
+  /* font-size: 1rem; */
 }
 .del-icon i:hover {
   transform: scale(1.07);
@@ -652,7 +652,7 @@ form .btn:hover {
   align-items: flex-start;
 }
 .last-div > div h1 {
-  font-size: 4rem;
+  /* font-size: 2rem; */
   margin-right: 20px;
 }
 .submit-co-code {
@@ -660,7 +660,7 @@ form .btn:hover {
   height: 40px;
   background-color: white;
   color: #80808e;
-  font-size: 1.7rem;
+  /* font-size: 1rem; */
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -678,13 +678,13 @@ form .btn:hover {
   text-align: right;
 }
 .last-div > div > div h1 {
-  font-size: 2rem;
+  /* font-size: 1rem; */
   padding-bottom: 10px;
 }
 .cont-shop-btn,
 .pro-checkout-btn {
   transition: all 0.2s;
-  font-size: 1.8rem;
+  /* font-size: 1rem; */
   font-weight: 400;
 }
 .submit-co-code:hover,
@@ -711,7 +711,7 @@ form .btn:hover {
     flex-direction: column;
   }
   .order-head > div > h1 {
-    font-size: 1.5rem;
+    /* font-size: 1rem; */
   }
   .last-div div {
     align-items: center;
@@ -721,12 +721,12 @@ form .btn:hover {
     text-align: center;
   }
   .last-div > div > div h1 {
-    font-size: 2.4rem;
+    /* font-size: 1.5rem; */
   }
 }
 @media (min-width: 601px) and (max-width: 800px) {
   .order-headdiv h1 {
-    font-size: 1.5rem;
+    /* font-size: 1rem; */
   }
 }
 @media (max-width: 1100px) {
@@ -743,7 +743,7 @@ form .btn:hover {
 }
 @media (max-width: 1350px) {
   .order-items > div > div > h2 {
-    font-size: 1.7rem;
+    /* font-size: 1rem; */
   }
 }
 

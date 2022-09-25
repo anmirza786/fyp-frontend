@@ -152,7 +152,7 @@ const Order = ({ cart, discounts = [], isLoading, user }) => {
             Uploading
           </LoadingOverlay>
         )} */}
-        <div className="order-body">
+        <div className="order-body header relative pt-16 items-center">
           {/* <Navbar /> */}
           <form onSubmit={(e) => onSubmit(e)}>
             <section className="orderMainCart">
@@ -179,7 +179,7 @@ const Order = ({ cart, discounts = [], isLoading, user }) => {
                 </p>
 
                 <div>
-                  <h1 style={{ fontWeight: "200" }}>Order & Payment Methods</h1>
+                  <h1>Order & Payment Methods</h1>
                 </div>
               </div>
 
@@ -317,7 +317,7 @@ const Order = ({ cart, discounts = [], isLoading, user }) => {
                           TOTAL:&nbsp;
                           <span>${total}</span>
                         </h1>
-                        <button className="pro-checkout-btn" type="submit">
+                        <button className="how-to-play ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150" type="submit">
                           <i class="fas fa-chevron-right"></i>
                           PROCEED TO PAY
                         </button>
@@ -333,7 +333,7 @@ const Order = ({ cart, discounts = [], isLoading, user }) => {
     );
   } else {
     return (
-      <div className="order-body">
+      <div className="order-body container">
         {/* <Navbar /> */}
         <section
           className="main-section"

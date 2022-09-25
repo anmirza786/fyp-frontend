@@ -6,8 +6,8 @@ import { getCartData } from "../../actions/auth";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-// const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
-const PayPalButton = "Y"
+const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
+// const PayPalButton = "Y"
 function PaymentScreen({ total, user, setShow, update, setLoading }) {
   // const { phone, address, town, postcode, country } = user;
   // console.log(phone, address, town, postcode, country, "in payment page");
@@ -21,7 +21,7 @@ function PaymentScreen({ total, user, setShow, update, setLoading }) {
       purchase_units: [
         {
           amount: {
-            value: 'total',
+            value: '123',
           },
         },
       ],
@@ -58,32 +58,32 @@ function PaymentScreen({ total, user, setShow, update, setLoading }) {
       // transaction_id,
     });
     console.log(body, "body while ordering");
-    // await axios
-    //   .post(REQUEST_URL + `/api/carts/order`, body, config)
-    //   .then((res) => {
-    //     dispatch(getCartData());
-    //     if (res.data.error) {
-    //       setLoading(false);
-    //       dispatch(getCartData());
-    //       setTimeout(function () {
-    //         alert(res.data.error);
-    //       }, 70);
-    //     } else if (res.data.success) {
-    //       setLoading(false);
-    //       history.push("/");
-    //       console.log(res.data.success);
-    //       setTimeout(function () {
-    //         alert(
-    //           "Dear customer,\n" +
-    //             "Your Payment was successfull." +
-    //             "\nThankYou for your purchase. we wish you good luck in competitions!"
-    //         );
-    //       }, 500);
-      //   }
-      // })
-      // .catch(function (error) {
-      //   console.log(error, "hahahaha");
-      // });
+    await axios
+      .post(REQUEST_URL + `/api/carts/order/`, body, config)
+      .then((res) => {
+        dispatch(getCartData());
+        if (res.data.error) {
+          setLoading(false);
+          dispatch(getCartData());
+          setTimeout(function () {
+            alert(res.data.error);
+          }, 70);
+        } else if (res.data.success) {
+          setLoading(false);
+          history.push("/");
+          console.log(res.data.success);
+          setTimeout(function () {
+            alert(
+              "Dear customer,\n" +
+                "Your Payment was successfull." +
+                "\nThankYou for your purchase. we wish you good luck in competitions!"
+            );
+          }, 500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error, "hahahaha");
+      });
   };
 
   const onApprove = (data, actions) => {

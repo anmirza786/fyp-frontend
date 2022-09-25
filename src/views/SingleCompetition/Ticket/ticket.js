@@ -2,6 +2,10 @@ import React from "react";
 import { connect, useSelector } from "react-redux";
 import "./tickets.css";
 import Swiper from "swiper";
+import "swiper";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+// import Swiper from "swiper/bundle";
+// import "swiper/css/bundle";
 import "./section-2.css";
 // import Ecard from "../ecard/section-2";
 import Tab from "react-bootstrap/Tab";
@@ -385,7 +389,7 @@ class Ticket extends React.Component {
           <div className="main-section">
             {/* ECARD SECTION */}
 
-            <section className="top-0 z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 section-2">
+            <section className="header relative pt-16 items-center flex section-2">
               <div className="eCard">
                 <div style={{ position: "relative" }}>
                   {this.state.competition.discount_active ? (
@@ -522,7 +526,7 @@ class Ticket extends React.Component {
 
             {/* Ticket section */}
 
-            <div className="tickets">
+            <div className=" com-section-3 container">
               <h1 style={{ fontWeight: "200" }}>Select your tickets</h1>
               <p>
                 First click a letter, then choose a number. Repeate this in case
